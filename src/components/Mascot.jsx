@@ -41,7 +41,6 @@ export default function Mascot() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
 
     const measure = () => {
@@ -56,28 +55,69 @@ export default function Mascot() {
     measure();
 
     let raf = 0;
-    const onMove = (event) => {
+    let idleTimer = 0;
+
+    const setOffset = (ox, oy) => {
+      if (leftPupilRef.current) {
+        leftPupilRef.current.setAttribute('transform', `translate(${ox} ${oy})`);
+      }
+      if (rightPupilRef.current) {
+        rightPupilRef.current.setAttribute('transform', `translate(${ox} ${oy})`);
+      }
+    };
+
+    const lookAt = (clientX, clientY) => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        const dx = event.clientX - centerRef.current.x;
-        const dy = event.clientY - centerRef.current.y;
+        const dx = clientX - centerRef.current.x;
+        const dy = clientY - centerRef.current.y;
         const threshold = 24; // zona mati agar pupil tidak bergetar
         const ox = dx > threshold ? 1 : dx < -threshold ? -1 : 0;
         const oy = dy > threshold ? 1 : dy < -threshold ? -1 : 0;
-        if (leftPupilRef.current) {
-          leftPupilRef.current.setAttribute('transform', `translate(${ox} ${oy})`);
-        }
-        if (rightPupilRef.current) {
-          rightPupilRef.current.setAttribute('transform', `translate(${ox} ${oy})`);
-        }
+        setOffset(ox, oy);
       });
     };
 
-    window.addEventListener('mousemove', onMove, { passive: true });
+    const onMouseMove = (event) => lookAt(event.clientX, event.clientY);
+
+    // Di layar sentuh tidak ada kursor, jadi ikuti sentuhan jari.
+    const onTouch = (event) => {
+      const touch = event.touches && event.touches[0];
+      if (touch) lookAt(touch.clientX, touch.clientY);
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('touchstart', onTouch, { passive: true });
+    window.addEventListener('touchmove', onTouch, { passive: true });
     window.addEventListener('resize', measure);
+    window.addEventListener('orientationchange', measure);
+
+    // Di perangkat sentuh, beri animasi "melirik" agar maskot tetap hidup
+    // meski belum disentuh.
+    const isTouch = !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (isTouch) {
+      const glances = [
+        [0, 0],
+        [1, 0],
+        [0, -1],
+        [-1, 0],
+        [0, 1],
+        [0, 0],
+      ];
+      let glanceIndex = 0;
+      idleTimer = window.setInterval(() => {
+        glanceIndex = (glanceIndex + 1) % glances.length;
+        setOffset(glances[glanceIndex][0], glances[glanceIndex][1]);
+      }, 2800);
+    }
+
     return () => {
-      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('touchstart', onTouch);
+      window.removeEventListener('touchmove', onTouch);
       window.removeEventListener('resize', measure);
+      window.removeEventListener('orientationchange', measure);
+      if (idleTimer) window.clearInterval(idleTimer);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);

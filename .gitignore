@@ -8,3 +8,5 @@ dist-ssr
 Thumbs.db
 npm-debug.log*
 dev-server.log
+.vercel
+.env*
