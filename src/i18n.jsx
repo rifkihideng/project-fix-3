@@ -3,6 +3,8 @@ import {
   site,
   socials,
   about,
+  aboutStory,
+  favoriteTools,
   experience,
   projects,
   awards,
@@ -15,6 +17,7 @@ import {
 
 const uiId = {
   nav: {
+    about: 'About',
     experience: 'Experience',
     projects: 'Projects',
     awards: 'Awards',
@@ -25,6 +28,7 @@ const uiId = {
     faq: 'FAQ',
   },
   sections: {
+    about: 'Tentang Saya',
     experience: 'Experience',
     projects: 'Projects',
     awards: 'Awards & Certifications',
@@ -41,6 +45,8 @@ const uiId = {
   email: 'Email',
   phone: 'Telepon',
   pronouns: 'Pronomina',
+  about: 'Tentang',
+  aboutTools: 'Tools favorit',
   copy: 'Salin',
   copied: 'Disalin:',
   github: 'GitHub',
@@ -83,6 +89,12 @@ const en = {
     'Experienced in turning requirements into scalable, maintainable digital products ready for production.',
     'Accustomed to collaborating in teams, applying best development practices, and keeping up with the latest technologies.',
   ],
+  aboutStory: [
+    'I started my career as a WiFi & fiber optic network technician — installing, configuring, and maintaining networks for homes and businesses.',
+    'Field experience taught me the importance of reliable, tidy, and maintainable systems. My curiosity about technology then led me to web development — from fixing connections to building applications.',
+    'Today I focus on building fast, responsive web applications, combining my networking and development background to deliver complete digital solutions.',
+  ],
+  favoriteTools: ['React', 'Vite', 'Tailwind CSS', 'MikroTik', 'TP-Link Omada'],
   experience: [
     {
       role: 'WiFi Fiber Optic Technician',
@@ -267,6 +279,7 @@ const en = {
   ],
   ui: {
     nav: {
+      about: 'About',
       experience: 'Experience',
       projects: 'Projects',
       awards: 'Awards',
@@ -277,6 +290,7 @@ const en = {
       faq: 'FAQ',
     },
     sections: {
+      about: 'About Me',
       experience: 'Experience',
       projects: 'Projects',
       awards: 'Awards & Certifications',
@@ -293,6 +307,8 @@ const en = {
     email: 'Email',
     phone: 'Phone',
     pronouns: 'Pronouns',
+    about: 'About',
+    aboutTools: 'Favorite tools',
     copy: 'Copy',
     copied: 'Copied:',
     github: 'GitHub',
@@ -323,7 +339,7 @@ const en = {
   },
 };
 
-const id = { site, socials, about, experience, projects, awards, tools, skillGroups, packages, testimonials, faqs, ui: uiId };
+const id = { site, socials, about, aboutStory, favoriteTools, experience, projects, awards, tools, skillGroups, packages, testimonials, faqs, ui: uiId };
 
 const translations = { id, en };
 

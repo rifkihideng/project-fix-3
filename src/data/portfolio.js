@@ -31,6 +31,14 @@ export const about = [
   'Terbiasa berkolaborasi dalam tim, menerapkan praktik terbaik pengembangan, serta terus mengikuti perkembangan teknologi terkini.',
 ];
 
+export const aboutStory = [
+  'Saya memulai karier sebagai teknisi jaringan WiFi & fiber optic — menangani instalasi, konfigurasi, dan pemeliharaan jaringan untuk rumah dan bisnis.',
+  'Pengalaman di lapangan mengajarkan saya pentingnya sistem yang andal, rapi, dan mudah dipelihara. Rasa ingin tahu terhadap teknologi kemudian membawa saya beralih ke dunia pengembangan web — dari memperbaiki koneksi menjadi membangun aplikasi.',
+  'Kini saya fokus membangun aplikasi web yang cepat dan responsif, memadukan latar belakang jaringan dan pengembangan untuk menghasilkan solusi digital yang lengkap.',
+];
+
+export const favoriteTools = ['React', 'Vite', 'Tailwind CSS', 'MikroTik', 'TP-Link Omada'];
+
 export const experience = [
   {
     role: 'Teknisi WiFi Fiber Optic',

@@ -195,7 +195,7 @@ export default function Hero() {
         </div>
 
         <div className="mt-4 rounded-xl border border-line bg-card p-5">
-          <h2 className="mb-3 text-sm font-semibold">About</h2>
+          <h2 className="mb-3 text-sm font-semibold">{t.ui.about}</h2>
           <ul className="space-y-2 text-sm leading-relaxed text-muted">
             {t.about.map((line, i) => (
               <li key={i} className="flex gap-2">

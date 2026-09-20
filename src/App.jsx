@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Banner from './components/Banner.jsx';
 import Hero from './components/Hero.jsx';
+import AboutMe from './components/AboutMe.jsx';
 import Section from './components/Section.jsx';
 import Experience from './components/Experience.jsx';
 import Projects from './components/Projects.jsx';
@@ -13,7 +14,7 @@ import Faq from './components/Faq.jsx';
 import Footer from './components/Footer.jsx';
 import CommandPalette from './components/CommandPalette.jsx';
 import BackToTop from './components/BackToTop.jsx';
-import CursorGlow from './components/CursorGlow.jsx';
+import Mascot from './components/Mascot.jsx';
 import WhatsAppChat from './components/WhatsAppChat.jsx';
 import ChatBot from './components/ChatBot.jsx';
 import Preloader from './components/Preloader.jsx';
@@ -63,6 +64,9 @@ export default function App() {
       <main className="mx-auto max-w-5xl px-5 pb-20">
         <Hero />
         <div className="mt-16 space-y-16">
+          <Section id="about" title={t.ui.sections.about}>
+            <AboutMe />
+          </Section>
           <Section id="experience" title={t.ui.sections.experience} count={t.experience.length}>
             <Experience />
           </Section>
@@ -97,7 +101,7 @@ export default function App() {
       <Footer />
 
       <BackToTop />
-      <CursorGlow />
+      <Mascot />
       <WhatsAppChat />
       <ChatBot />
       <Toast />

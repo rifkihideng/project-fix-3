@@ -9,6 +9,7 @@ import {
   Search,
   Sparkles,
   Sun,
+  User,
 } from 'lucide-react';
 import { useLang } from '../i18n.jsx';
 
@@ -27,6 +28,7 @@ export default function CommandPalette({ onClose, theme, onToggleTheme }) {
     const github = t.socials.find((s) => s.id === 'github');
     return [
       { id: 'home', title: t.ui.palette.home, icon: Home, run: () => scrollToId('top') },
+      { id: 'about', title: t.ui.nav.about, icon: User, run: () => scrollToId('about') },
       { id: 'experience', title: t.ui.nav.experience, icon: Briefcase, run: () => scrollToId('experience') },
       { id: 'projects', title: t.ui.nav.projects, icon: Sparkles, run: () => scrollToId('projects') },
       { id: 'awards', title: t.ui.sections.awards, icon: Award, run: () => scrollToId('awards') },

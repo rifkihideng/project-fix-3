@@ -3,7 +3,7 @@ import { Command, Languages, Menu, Moon, Sun, X } from 'lucide-react';
 import { BrandIcon } from './icons.jsx';
 import { useLang } from '../i18n.jsx';
 
-const NAV_IDS = ['experience', 'projects', 'awards', 'tools', 'skills', 'packages', 'testimonials', 'faq'];
+const NAV_IDS = ['about', 'experience', 'projects', 'awards', 'tools', 'skills', 'packages', 'testimonials', 'faq'];
 
 export default function Banner({ theme, onToggleTheme, onOpenPalette }) {
   const { t, lang, toggleLang } = useLang();

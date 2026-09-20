@@ -89,19 +89,12 @@ html {
   letter-spacing: 0.02em;
 }
 
-/* Ring avatar gradient */
+/* Bingkai foto profil — cincin polos amber sesuai aksen UI */
 .avatar-ring {
-  background: conic-gradient(
-    from 210deg,
-    #f59e0b,
-    #f97316,
-    #ec4899,
-    #8b5cf6,
-    #3b82f6,
-    #f59e0b
-  );
+  background: var(--color-accent);
   padding: 2px;
   border-radius: 9999px;
+  box-shadow: 0 0 22px -6px rgba(245, 158, 11, 0.55);
 }
 
 /* Judul section */
@@ -303,14 +296,13 @@ kbd {
   }
 }
 
-/* Glow di belakang avatar */
+/* Glow di belakang avatar — amber agar selaras dengan cincin */
 .hero-glow {
   background: radial-gradient(
     circle at center,
-    rgba(245, 158, 11, 0.35),
-    rgba(236, 72, 153, 0.18) 45%,
-    rgba(139, 92, 246, 0.1) 70%,
-    transparent 75%
+    rgba(245, 158, 11, 0.30),
+    rgba(245, 158, 11, 0.12) 55%,
+    transparent 72%
   );
   filter: blur(14px);
 }
@@ -462,6 +454,37 @@ kbd {
   width: 6px;
   height: 6px;
   background: #f59e0b;
+}
+
+/* Maskot pixel statis di pojok kiri bawah (di atas tombol WhatsApp) */
+.mascot {
+  position: fixed;
+  left: 18px;
+  bottom: 72px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.mascot svg {
+  display: block;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mascot svg {
+    animation: mascot-bob 2.6s ease-in-out infinite;
+  }
+}
+
+@keyframes mascot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(2deg);
+  }
 }
 
 /* Transisi link & tombol yang lebih halus */
