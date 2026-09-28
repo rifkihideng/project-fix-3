@@ -222,6 +222,16 @@ export const testimonials = [
     role: 'Klien Proyek',
     text: 'Komunikatif dan hasilnya sesuai permintaan. Proses pengerjaan transparan dari awal sampai selesai.',
   },
+  {
+    name: 'Rizki Fadillah',
+    role: 'Ketua Komunitas APEX RISE',
+    text: 'Landing page komunitas kami jadi lebih menarik dan mudah dikenali. Profil tim, strategi, dan info wilayah tertata rapi — pengerjaan cepat dan sesuai permintaan.',
+  },
+  {
+    name: 'Dewi Lestari',
+    role: 'Pengguna Catatan Keuangan',
+    text: 'Aplikasi pencatat keuangannya ringan dan mudah dipakai. Grafiknya membantu saya memantau pemasukan dan pengeluaran setiap bulan dengan jelas.',
+  },
 ];
 
 export const faqs = [

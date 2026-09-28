@@ -262,6 +262,16 @@ const en = {
       role: 'Project Client',
       text: 'Communicative and the result matches the request. The process is transparent from start to finish.',
     },
+    {
+      name: 'Rizki Fadillah',
+      role: 'APEX RISE Community Lead',
+      text: 'Our community landing page became more attractive and recognizable. Team profile, strategy, and territory info are neatly organized — fast delivery and as requested.',
+    },
+    {
+      name: 'Dewi Lestari',
+      role: 'Catatan Keuangan User',
+      text: 'The finance tracker is lightweight and easy to use. Its charts help me monitor my monthly income and expenses clearly.',
+    },
   ],
   faqs: [
     {
