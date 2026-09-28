@@ -126,6 +126,22 @@ async function handleChat(messages, lang = 'id') {
   return data?.choices?.[0]?.message?.content ?? 'Maaf, saya tidak bisa menjawab saat ini.';
 }
 
+let githubCache = { data: null, ts: 0 };
+const GITHUB_TTL = 60 * 60 * 1000; // 1 jam
+
+async function fetchGithubStats() {
+  const headers = { Accept: 'application/vnd.github+json' };
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  const response = await fetch('https://api.github.com/users/rifkihideng', { headers });
+  if (!response.ok) throw new Error(`GitHub error ${response.status}`);
+  const data = await response.json();
+  return {
+    repos: data.public_repos,
+    followers: data.followers,
+    following: data.following,
+  };
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
@@ -153,6 +169,22 @@ const server = http.createServer(async (req, res) => {
       const message = error.message || 'Terjadi kesalahan';
       const status = message.includes('belum diatur') ? 500 : 500;
       sendJson(res, status, { error: message });
+    }
+    return;
+  }
+
+  if (req.method === 'GET' && url.pathname === '/api/github') {
+    try {
+      if (!githubCache.data || Date.now() - githubCache.ts > GITHUB_TTL) {
+        githubCache = { data: await fetchGithubStats(), ts: Date.now() };
+      }
+      sendJson(res, 200, githubCache.data);
+    } catch (error) {
+      if (githubCache.data) {
+        sendJson(res, 200, githubCache.data);
+      } else {
+        sendJson(res, 502, { error: 'Gagal mengambil statistik GitHub' });
+      }
     }
     return;
   }

@@ -81,12 +81,15 @@ function GithubCard() {
 
   useEffect(() => {
     let active = true;
-    fetch(`https://api.github.com/users/${username}`)
-      .then((response) => response.json())
+    fetch('/api/github')
+      .then((response) => {
+        if (!response.ok) throw new Error('github stats gagal');
+        return response.json();
+      })
       .then((data) => {
-        if (active && data && typeof data.public_repos === 'number') {
+        if (active && data && typeof data.repos === 'number') {
           setStats({
-            repos: data.public_repos,
+            repos: data.repos,
             followers: data.followers,
             following: data.following,
           });
