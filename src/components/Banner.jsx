@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Command, Languages, Menu, Moon, Sun, X } from 'lucide-react';
-import { BrandIcon } from './icons.jsx';
+import { BrandIcon, VerifiedBadge } from './icons.jsx';
 import { useLang } from '../i18n.jsx';
 
 const NAV_IDS = ['about', 'experience', 'projects', 'awards', 'tools', 'skills', 'packages', 'testimonials', 'faq'];
@@ -38,7 +38,10 @@ export default function Banner({ theme, onToggleTheme, onOpenPalette }) {
           ) : (
             <span className="monogram">{t.site.monogram}</span>
           )}
-          <span className="hidden text-sm font-semibold tracking-tight min-[400px]:inline">{t.site.name}</span>
+          <span className="hidden items-center gap-1.5 text-sm font-semibold tracking-tight min-[400px]:inline-flex">
+            {t.site.name}
+            <VerifiedBadge className="h-4 w-4" />
+          </span>
         </a>
 
         <nav className="ml-6 hidden items-center gap-1 lg:flex">

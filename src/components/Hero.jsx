@@ -9,7 +9,7 @@ import {
   Phone,
   User,
 } from 'lucide-react';
-import { BrandIcon } from './icons.jsx';
+import { BrandIcon, VerifiedBadge } from './icons.jsx';
 import TypingText from './TypingText.jsx';
 import RotatingAvatar from './RotatingAvatar.jsx';
 import { showToast } from './Toast.jsx';
@@ -154,7 +154,10 @@ export default function Hero() {
           </div>
         </div>
 
-        <h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">{t.site.name}</h1>
+        <h1 className="mt-6 flex items-center gap-2 text-3xl font-bold tracking-tight sm:text-4xl">
+          {t.site.name}
+          <VerifiedBadge className="h-6 w-6 sm:h-7 sm:w-7" />
+        </h1>
         <p className="mt-2 text-muted">
           <TypingText text={t.site.tagline} />
         </p>
