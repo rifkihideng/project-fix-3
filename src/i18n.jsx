@@ -132,6 +132,14 @@ const en = {
       link: 'https://narco-empire-apx.vercel.app/',
       year: '2026',
     },
+    {
+      name: 'Catatan Keuangan',
+      description:
+        'A personal finance tracker — record income & expenses with interactive charts. Built with React + Express + SQLite and deployed on Vercel.',
+      tech: ['React', 'Express', 'SQLite', 'Vercel'],
+      link: 'https://finance-catatanku.vercel.app/',
+      year: '2026',
+    },
   ],
   awards: [
     {

@@ -77,6 +77,14 @@ export const projects = [
     link: 'https://narco-empire-apx.vercel.app/',
     year: '2026',
   },
+  {
+    name: 'Catatan Keuangan',
+    description:
+      'Aplikasi pencatat keuangan pribadi — mencatat pemasukan & pengeluaran dengan grafik interaktif. Dibangun dengan React + Express + SQLite dan di-deploy di Vercel.',
+    tech: ['React', 'Express', 'SQLite', 'Vercel'],
+    link: 'https://finance-catatanku.vercel.app/',
+    year: '2026',
+  },
 ];
 
 export const awards = [
