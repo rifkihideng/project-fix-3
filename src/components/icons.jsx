@@ -96,7 +96,7 @@ export function VerifiedBadge({ className = 'h-5 w-5' }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      fill="#1d9bf0"
+      fill="#0095f6"
       className={`shrink-0 ${className}`}
       aria-label="Terverifikasi"
       role="img"
