@@ -6,17 +6,16 @@ export default function Testimonials() {
   const { t } = useLang();
   const items = t.testimonials;
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const touchStartX = useRef(null);
 
-  // Auto-play setiap 5 detik, berhenti saat kursor di atas kartu.
+  // Auto-play otomatis setiap 4 detik.
   useEffect(() => {
-    if (paused || items.length <= 1) return undefined;
+    if (items.length <= 1) return undefined;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % items.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(timer);
-  }, [paused, items.length]);
+  }, [items.length]);
 
   const prev = () => setIndex((i) => (i - 1 + items.length) % items.length);
   const next = () => setIndex((i) => (i + 1) % items.length);
@@ -35,11 +34,7 @@ export default function Testimonials() {
   };
 
   return (
-    <div
-      className="mx-auto max-w-2xl"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div className="mx-auto max-w-2xl">
       <div
         className="overflow-hidden"
         onTouchStart={onTouchStart}
