@@ -421,41 +421,6 @@ kbd {
   box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.5);
 }
 
-/* Kursor glow (hanya perangkat dengan mouse) */
-.cursor-ring,
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: 9999px;
-  z-index: 9999;
-}
-
-.cursor-ring {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid rgba(245, 158, 11, 0.55);
-  transition:
-    width 0.2s ease,
-    height 0.2s ease,
-    background-color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.cursor-ring.is-hover {
-  width: 46px;
-  height: 46px;
-  background: rgba(245, 158, 11, 0.08);
-  border-color: rgba(245, 158, 11, 0.9);
-}
-
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: #f59e0b;
-}
-
 /* Maskot pixel statis di pojok kiri bawah (di atas tombol WhatsApp) */
 .mascot {
   position: fixed;

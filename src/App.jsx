@@ -63,7 +63,7 @@ export default function App() {
 
       <main className="mx-auto max-w-5xl px-5 pb-20">
         <Hero />
-        <div className="mt-16 space-y-16">
+        <div className="mt-24 space-y-24">
           <Section id="about" title={t.ui.sections.about}>
             <AboutMe />
           </Section>

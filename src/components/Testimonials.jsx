@@ -6,16 +6,17 @@ export default function Testimonials() {
   const { t } = useLang();
   const items = t.testimonials;
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   const touchStartX = useRef(null);
 
-  // Auto-play otomatis setiap 4 detik.
+  // Auto-play setiap 4 detik, berhenti sementara saat disentuh/hover.
   useEffect(() => {
-    if (items.length <= 1) return undefined;
+    if (items.length <= 1 || paused) return undefined;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % items.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [items.length]);
+  }, [items.length, paused]);
 
   const prev = () => setIndex((i) => (i - 1 + items.length) % items.length);
   const next = () => setIndex((i) => (i + 1) % items.length);
@@ -34,7 +35,11 @@ export default function Testimonials() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div
+      className="mx-auto max-w-2xl"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <div
         className="overflow-hidden"
         onTouchStart={onTouchStart}

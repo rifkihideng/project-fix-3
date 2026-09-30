@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLang } from '../i18n.jsx';
+import { showToast } from './Toast.jsx';
 
 export default function Section({ id, title, count, children }) {
   const { t } = useLang();
@@ -38,6 +39,7 @@ export default function Section({ id, title, count, children }) {
   const copyLink = () => {
     const url = `${window.location.origin}${window.location.pathname}#${id}`;
     if (navigator.clipboard) navigator.clipboard.writeText(url);
+    showToast(t.ui.linkCopied);
   };
 
   return (

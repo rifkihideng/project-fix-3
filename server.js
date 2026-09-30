@@ -166,9 +166,7 @@ const server = http.createServer(async (req, res) => {
       const reply = await handleChat(body.messages, body.lang);
       sendJson(res, 200, { reply });
     } catch (error) {
-      const message = error.message || 'Terjadi kesalahan';
-      const status = message.includes('belum diatur') ? 500 : 500;
-      sendJson(res, status, { error: message });
+      sendJson(res, 500, { error: error.message || 'Terjadi kesalahan' });
     }
     return;
   }

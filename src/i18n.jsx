@@ -60,6 +60,7 @@ const uiId = {
   toggleTheme: 'Ganti mode terang/gelap',
   openPalette: 'Buka command palette',
   copySection: 'Salin tautan bagian',
+  linkCopied: 'Tautan bagian disalin.',
   close: 'Tutup',
   whatsappMessage: 'Halo Rifki, saya ingin bertanya tentang layanan kamu.',
   footerBuilt: 'Dibangun dengan React, Vite & Tailwind CSS',
@@ -340,6 +341,7 @@ const en = {
     toggleTheme: 'Toggle light/dark mode',
     openPalette: 'Open command palette',
     copySection: 'Copy section link',
+    linkCopied: 'Section link copied.',
     close: 'Close',
     whatsappMessage: 'Hi Rifki, I would like to ask about your services.',
     footerBuilt: 'Built with React, Vite & Tailwind CSS',
@@ -374,6 +376,9 @@ export function LanguageProvider({ children }) {
       localStorage.setItem('portfolio-lang', lang);
     } catch {
       /* abaikan */
+    }
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
     }
   }, [lang]);
 
