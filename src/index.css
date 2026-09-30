@@ -602,6 +602,22 @@ button:focus-visible {
   }
 }
 
+/* Isian progres pada titik navigasi carousel */
+.carousel-dot-fill {
+  animation-name: dot-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes dot-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 /* Modal preview PDF */
 .modal-backdrop {
   position: fixed;
