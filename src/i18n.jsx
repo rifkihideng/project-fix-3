@@ -141,6 +141,14 @@ const en = {
       link: 'https://finance-catatanku.vercel.app/',
       year: '2026',
     },
+    {
+      name: 'Network Monitor',
+      description:
+        'A network monitoring dashboard — Internet Speed Test, Device Monitor, Wi-Fi Quality, and Internet History with interactive charts. Built with Next.js + TypeScript + Turso and deployed on Vercel.',
+      tech: ['Next.js', 'TypeScript', 'Recharts', 'Vercel'],
+      link: 'https://network-monitor-wine.vercel.app/',
+      year: '2026',
+    },
   ],
   awards: [
     {

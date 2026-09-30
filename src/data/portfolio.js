@@ -85,6 +85,14 @@ export const projects = [
     link: 'https://finance-catatanku.vercel.app/',
     year: '2026',
   },
+  {
+    name: 'Network Monitor',
+    description:
+      'Dashboard monitoring jaringan — Internet Speed Test, Device Monitor, Wi-Fi Quality, dan Internet History dengan grafik interaktif. Dibangun dengan Next.js + TypeScript + Turso dan di-deploy di Vercel.',
+    tech: ['Next.js', 'TypeScript', 'Recharts', 'Vercel'],
+    link: 'https://network-monitor-wine.vercel.app/',
+    year: '2026',
+  },
 ];
 
 export const awards = [
