@@ -5,14 +5,19 @@ import TiltCard from './TiltCard.jsx';
 
 export default function Projects() {
   const { t } = useLang();
+  const isOddCount = t.projects.length % 2 === 1;
   return (
     <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {t.projects.map((project) => (
+      {t.projects.map((project, index) => (
         <TiltCard
           key={project.name}
           as={project.link ? 'a' : 'div'}
           {...(project.link ? { href: project.link, target: '_blank', rel: 'noreferrer' } : {})}
-          className="card-hover group flex h-full flex-col rounded-xl border border-line bg-card p-5"
+          className={`card-hover group flex h-full flex-col rounded-xl border border-line bg-card p-5 ${
+            isOddCount && index === t.projects.length - 1
+              ? 'sm:col-span-2 lg:col-span-1'
+              : ''
+          }`}
         >
             <div className="flex items-start justify-between gap-3">
               <h3 className="min-w-0 font-semibold">{project.name}</h3>
