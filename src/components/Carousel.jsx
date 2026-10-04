@@ -26,6 +26,7 @@ export default function Carousel({
   const [center, setCenter] = useState(0);
   const [step, setStep] = useState(0);
   const drag = useRef({ active: false, startX: 0, dx: 0, pointerId: null });
+  const suppressClick = useRef(false);
 
   // Reset posisi saat data (mis. ganti bahasa) berubah.
   useEffect(() => {
@@ -89,7 +90,7 @@ export default function Carousel({
 
   const onPointerDown = (event) => {
     drag.current = { active: true, startX: event.clientX, dx: 0, pointerId: event.pointerId };
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+    event.target.setPointerCapture?.(event.pointerId);
     setDragging(true);
     setPaused(true);
   };
@@ -105,6 +106,10 @@ export default function Carousel({
     setDragOffset(0);
     const dx = drag.current.dx;
     if (Math.abs(dx) > 60) {
+      suppressClick.current = true;
+      setTimeout(() => {
+        suppressClick.current = false;
+      }, 0);
       if (dx < 0) next();
       else prev();
     }
@@ -136,6 +141,12 @@ export default function Carousel({
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onClickCapture={(event) => {
+            if (!suppressClick.current) return;
+            event.preventDefault();
+            event.stopPropagation();
+            suppressClick.current = false;
+          }}
         >
           {slides.map((item, i) => {
             const isActive = i === index;
