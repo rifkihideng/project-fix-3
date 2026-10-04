@@ -154,7 +154,7 @@ const en = {
       description:
         'Official website of the #SemuaBerhakBisa community — a free information technology learning community for everyone. Showcasing academy programs (Programming, Graphic Design, Computer Networking, Microsoft Office), mentor profiles, registration flow, and educational blog & articles. Built with React + Vite + Express + Turso and deployed on Vercel.',
       tech: ['React', 'Vite', 'Tailwind CSS', 'Express', 'Turso'],
-      link: 'https://github.com/rifkihideng/semua-berhak-bisa',
+      link: 'https://semua-berhak-bisa.vercel.app/',
       year: '2026',
     },
   ],

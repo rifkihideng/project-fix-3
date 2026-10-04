@@ -98,7 +98,7 @@ export const projects = [
     description:
       'Website resmi komunitas #SemuaBerhakBisa — komunitas belajar teknologi informasi gratis untuk semua kalangan. Menampilkan program akademi (Pemrograman, Desain Grafis, Jaringan Komputer, Microsoft Office), profil mentor, alur pendaftaran, serta blog & artikel edukasi. Dibangun dengan React + Vite + Express + Turso dan di-deploy di Vercel.',
     tech: ['React', 'Vite', 'Tailwind CSS', 'Express', 'Turso'],
-    link: 'https://github.com/rifkihideng/semua-berhak-bisa',
+    link: 'https://semua-berhak-bisa.vercel.app/',
     year: '2026',
   },
 ];
