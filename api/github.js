@@ -1,5 +1,6 @@
 // api/github.js — Serverless function: proxy statistik GitHub agar tidak kena rate-limit browser.
 // Opsional environment variable: GITHUB_TOKEN (personal access token) untuk menaikkan rate limit.
+import { applyCors } from '../lib/cors.js';
 
 const GITHUB_USER = 'rifkihideng';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -23,9 +24,7 @@ async function fetchGithubStats() {
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  applyCors(req, res);
   // Cache di CDN Vercel selama 1 jam agar jarang memanggil API GitHub.
   res.setHeader('Cache-Control', 'public, s-maxage=3600, max-age=3600, stale-while-revalidate=86400');
 
@@ -47,6 +46,7 @@ export default async function handler(req, res) {
     cache = { data: stats, ts: Date.now() };
     res.status(200).json(stats);
   } catch (error) {
+    console.error('[api/github]', error);
     // Jika ada cache (walaupun kedaluwarsa), pakai sebagai fallback.
     if (cache.data) {
       return res.status(200).json(cache.data);

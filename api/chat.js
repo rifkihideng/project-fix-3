@@ -1,6 +1,7 @@
 // api/chat.js — Serverless function chatbot AI (Groq) untuk Vercel.
 // Butuh environment variable: GROQ_API_KEY (dan opsional GROQ_MODEL).
 import { site, packages, faqs } from '../src/data/portfolio.js';
+import { applyCors } from '../lib/cors.js';
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-20b';
@@ -71,9 +72,7 @@ async function handleChat(messages, lang = 'id') {
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  applyCors(req, res);
 
   if (req.method === 'OPTIONS') {
     res.status(204).end();
@@ -94,6 +93,7 @@ export default async function handler(req, res) {
     const reply = await handleChat(body.messages, body.lang);
     res.status(200).json({ reply });
   } catch (error) {
-    res.status(500).json({ error: error.message || 'Terjadi kesalahan' });
+    console.error('[api/chat]', error);
+    res.status(500).json({ error: 'Terjadi kesalahan pada server. Coba lagi nanti.' });
   }
 }

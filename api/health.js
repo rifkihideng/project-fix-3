@@ -1,8 +1,8 @@
 // api/health.js — Serverless function untuk cek status chatbot di Vercel.
+import { applyCors } from '../lib/cors.js';
+
 export default function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  applyCors(req, res);
 
   if (req.method === 'OPTIONS') {
     res.status(204).end();

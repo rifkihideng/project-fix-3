@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { site, packages, faqs } from './src/data/portfolio.js';
+import { corsHeaders } from './lib/cors.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -63,12 +64,10 @@ const SYSTEM_PROMPT = [
   '- Jika pertanyaan di luar konteks, jawab sopan lalu arahkan kembali ke layanan.',
 ].join('\n');
 
-function sendJson(res, status, data) {
+function sendJson(req, res, status, data) {
   res.writeHead(status, {
     'Content-Type': 'application/json; charset=utf-8',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    ...corsHeaders(req),
   });
   res.end(JSON.stringify(data));
 }
@@ -146,12 +145,12 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (req.method === 'OPTIONS') {
-    sendJson(res, 204, {});
+    sendJson(req, res, 204, {});
     return;
   }
 
   if (req.method === 'GET' && url.pathname === '/api/health') {
-    sendJson(res, 200, { ok: true, model: GROQ_MODEL, hasKey: Boolean(GROQ_API_KEY) });
+    sendJson(req, res, 200, { ok: true, model: GROQ_MODEL, hasKey: Boolean(GROQ_API_KEY) });
     return;
   }
 
@@ -160,13 +159,14 @@ const server = http.createServer(async (req, res) => {
       const raw = await readBody(req);
       const body = raw ? JSON.parse(raw) : {};
       if (!Array.isArray(body.messages)) {
-        sendJson(res, 400, { error: 'messages harus berupa array' });
+        sendJson(req, res, 400, { error: 'messages harus berupa array' });
         return;
       }
       const reply = await handleChat(body.messages, body.lang);
-      sendJson(res, 200, { reply });
+      sendJson(req, res, 200, { reply });
     } catch (error) {
-      sendJson(res, 500, { error: error.message || 'Terjadi kesalahan' });
+      console.error('[api/chat]', error);
+      sendJson(req, res, 500, { error: 'Terjadi kesalahan pada server. Coba lagi nanti.' });
     }
     return;
   }
@@ -176,18 +176,19 @@ const server = http.createServer(async (req, res) => {
       if (!githubCache.data || Date.now() - githubCache.ts > GITHUB_TTL) {
         githubCache = { data: await fetchGithubStats(), ts: Date.now() };
       }
-      sendJson(res, 200, githubCache.data);
+      sendJson(req, res, 200, githubCache.data);
     } catch (error) {
+      console.error('[api/github]', error);
       if (githubCache.data) {
-        sendJson(res, 200, githubCache.data);
+        sendJson(req, res, 200, githubCache.data);
       } else {
-        sendJson(res, 502, { error: 'Gagal mengambil statistik GitHub' });
+        sendJson(req, res, 502, { error: 'Gagal mengambil statistik GitHub' });
       }
     }
     return;
   }
 
-  sendJson(res, 404, { error: 'Tidak ditemukan' });
+  sendJson(req, res, 404, { error: 'Tidak ditemukan' });
 });
 
 server.listen(PORT, () => {
