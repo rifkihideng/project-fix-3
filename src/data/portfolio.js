@@ -93,6 +93,14 @@ export const projects = [
     link: 'https://network-monitor-wine.vercel.app/',
     year: '2026',
   },
+  {
+    name: 'Semua Berhak Bisa',
+    description:
+      'Website resmi komunitas #SemuaBerhakBisa — komunitas belajar teknologi informasi gratis untuk semua kalangan. Menampilkan program akademi (Pemrograman, Desain Grafis, Jaringan Komputer, Microsoft Office), profil mentor, alur pendaftaran, serta blog & artikel edukasi. Dibangun dengan React + Vite + Express + Turso dan di-deploy di Vercel.',
+    tech: ['React', 'Vite', 'Tailwind CSS', 'Express', 'Turso'],
+    link: 'https://github.com/rifkihideng/semua-berhak-bisa',
+    year: '2026',
+  },
 ];
 
 export const awards = [
@@ -147,7 +155,7 @@ export const skillGroups = [
 export const packages = [
   {
     name: 'Personal Website',
-    price: 'Rp 750.000',
+    price: 'Rp 1.000.000',
     description: 'Website pribadi siap pakai untuk portofolio, CV online, dan personal branding. Cocok untuk kamu yang ingin tampil profesional di dunia digital tanpa ribet.',
     features: [
       '1 halaman landing page',
@@ -159,7 +167,7 @@ export const packages = [
   },
   {
     name: 'Undangan Nikah',
-    price: 'Rp 350.000',
+    price: 'Rp 500.000',
     description: 'Undangan pernikahan digital yang elegan dan mudah dibagikan. Dilengkapi countdown, galeri foto, RSVP, dan lokasi peta. Bisa disesuaikan dengan tema dan nama pasangan.',
     features: [
       'Desain tema pernikahan',
@@ -173,7 +181,7 @@ export const packages = [
   },
   {
     name: 'UMKM Website',
-    price: 'Rp 1.500.000',
+    price: 'Rp 2.500.000',
     description: 'Website untuk usaha kecil dan menengah agar produk lebih mudah ditemukan. Dilengkapi katalog produk, integrasi WhatsApp, dan optimasi SEO dasar untuk menarik pelanggan.',
     features: [
       'Sampai 5 halaman',
@@ -186,7 +194,7 @@ export const packages = [
   },
   {
     name: 'Company Profile',
-    price: 'Rp 3.000.000',
+    price: 'Rp 5.000.000',
     description: 'Profil perusahaan profesional untuk membangun kredibilitas bisnis. Desain premium, halaman lengkap, blog/berita, serta optimasi SEO dan analitik untuk kebutuhan korporat.',
     features: [
       'Halaman lengkap (sampai 10)',
@@ -200,7 +208,7 @@ export const packages = [
   },
   {
     name: 'Web Pembayaran',
-    price: 'Rp 5.000.000',
+    price: 'Rp 8.000.000',
     description: 'Website dengan fitur transaksi dan pembayaran online lengkap. Cocok untuk toko online yang butuh katalog produk, keranjang, payment gateway, dan dashboard admin.',
     features: [
       'Katalog produk & keranjang',
