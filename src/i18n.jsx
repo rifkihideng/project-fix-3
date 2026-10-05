@@ -197,7 +197,7 @@ const en = {
   packages: [
     {
       name: 'Personal Website',
-      price: 'Rp 1.000.000',
+      price: 'Rp 250.000',
       description: 'A ready-to-use personal website for portfolio, online CV, and personal branding. Present yourself professionally online without hassle.',
       features: [
         '1 landing page',
@@ -209,7 +209,7 @@ const en = {
     },
     {
       name: 'Wedding Invitation',
-      price: 'Rp 500.000',
+      price: 'Rp 80.000',
       description: 'An elegant digital wedding invitation that is easy to share. Includes countdown, photo gallery, RSVP, and map location. Customizable theme and couple names.',
       features: [
         'Wedding theme design',
@@ -223,7 +223,7 @@ const en = {
     },
     {
       name: 'UMKM Website',
-      price: 'Rp 2.500.000',
+      price: 'Rp 750.000',
       description: 'A website for small and medium businesses so your products are easier to find. Includes product catalog, WhatsApp integration, and basic SEO to attract more customers.',
       features: [
         'Up to 5 pages',
@@ -236,7 +236,7 @@ const en = {
     },
     {
       name: 'Company Profile',
-      price: 'Rp 5.000.000',
+      price: 'Rp 1.500.000',
       description: 'A professional company profile to build business credibility. Premium design, complete pages, blog/news, plus SEO and analytics for corporate needs.',
       features: [
         'Complete pages (up to 10)',
@@ -250,7 +250,7 @@ const en = {
     },
     {
       name: 'Online Store & Payment',
-      price: 'Rp 8.000.000',
+      price: 'Rp 2.500.000',
       description: 'A website with complete online transaction and payment features. Perfect for online stores needing product catalog, cart, payment gateway, and admin dashboard.',
       features: [
         'Product catalog & cart',
