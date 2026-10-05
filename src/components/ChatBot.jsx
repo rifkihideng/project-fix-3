@@ -14,6 +14,7 @@ export default function ChatBot() {
           greeting: 'Halo! 👋 Ada yang bisa saya bantu seputar layanan Rifki?',
           offline:
             'Server chatbot belum aktif. Jalankan `node server.js` dan isi GROQ_API_KEY di file .env.',
+          ratelimited: 'Terlalu banyak pesan. Tunggu sebentar ya, lalu coba lagi.',
           chips: ['Paket & harga', 'Layanan jaringan', 'Cara order'],
         }
       : {
@@ -23,6 +24,7 @@ export default function ChatBot() {
           greeting: "Hi! 👋 How can I help you with Rifki's services?",
           offline:
             'The chatbot server is offline. Run `node server.js` and set GROQ_API_KEY in the .env file.',
+          ratelimited: 'Too many messages. Please wait a moment and try again.',
           chips: ['Packages & pricing', 'Network services', 'How to order'],
         };
 
@@ -70,6 +72,7 @@ export default function ChatBot() {
           messages: next.map((m) => ({ role: m.role, content: m.text })),
         }),
       });
+      if (res.status === 429) throw new Error('RATE_LIMITED');
       if (!res.ok) throw new Error('bad status');
       const data = await res.json();
       setMessages((prev) => [
@@ -77,12 +80,13 @@ export default function ChatBot() {
         { id: Date.now(), role: 'assistant', text: data.reply },
       ]);
       setOnline(true);
-    } catch {
+    } catch (error) {
+      const limited = error?.message === 'RATE_LIMITED';
       setMessages((prev) => [
         ...prev,
-        { id: Date.now(), role: 'assistant', text: labels.offline },
+        { id: Date.now(), role: 'assistant', text: limited ? labels.ratelimited : labels.offline },
       ]);
-      setOnline(false);
+      if (!limited) setOnline(false);
     } finally {
       setLoading(false);
     }

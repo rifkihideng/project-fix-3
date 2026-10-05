@@ -2,10 +2,20 @@
 // Butuh environment variable: GROQ_API_KEY (dan opsional GROQ_MODEL).
 import { site, packages, faqs } from '../src/data/portfolio.js';
 import { applyCors } from '../lib/cors.js';
+import { createRateLimiter, getClientIp } from '../lib/rate-limit.js';
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-20b';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+// Rate limit chatbot per IP. Di serverless (Vercel) limiter in-memory bersifat
+// best-effort; untuk limit yang konsisten gunakan Upstash Redis (lihat lib/rate-limit.js).
+const CHAT_RATE_LIMIT = Number(process.env.CHAT_RATE_LIMIT) || 10;
+const CHAT_RATE_WINDOW_MS = Number(process.env.CHAT_RATE_WINDOW_MS) || 60_000;
+const chatLimiter = createRateLimiter({
+  limit: CHAT_RATE_LIMIT,
+  windowMs: CHAT_RATE_WINDOW_MS,
+});
 
 const SYSTEM_PROMPT = [
   `Kamu adalah asisten virtual di website portofolio ${site.name}.`,
@@ -81,6 +91,16 @@ export default async function handler(req, res) {
 
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method tidak diizinkan' });
+    return;
+  }
+
+  const limit = chatLimiter(getClientIp(req, { trustProxy: true }));
+  if (!limit.allowed) {
+    res.setHeader('Retry-After', Math.ceil(limit.retryAfterMs / 1000));
+    res.status(429).json({
+      error: 'Terlalu banyak permintaan. Coba lagi nanti.',
+      retryAfterMs: limit.retryAfterMs,
+    });
     return;
   }
 

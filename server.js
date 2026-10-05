@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { site, packages, faqs } from './src/data/portfolio.js';
 import { corsHeaders } from './lib/cors.js';
+import { createRateLimiter, getClientIp } from './lib/rate-limit.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -37,6 +38,14 @@ const PORT = Number(process.env.PORT) || 3001;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-20b';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+// Rate limit chatbot per IP agar API key Groq tidak disalahgunakan.
+const CHAT_RATE_LIMIT = Number(process.env.CHAT_RATE_LIMIT) || 10;
+const CHAT_RATE_WINDOW_MS = Number(process.env.CHAT_RATE_WINDOW_MS) || 60_000;
+const chatLimiter = createRateLimiter({
+  limit: CHAT_RATE_LIMIT,
+  windowMs: CHAT_RATE_WINDOW_MS,
+});
 
 const SYSTEM_PROMPT = [
   `Kamu adalah asisten virtual di website portofolio ${site.name}.`,
@@ -155,6 +164,16 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.method === 'POST' && url.pathname === '/api/chat') {
+    const limit = chatLimiter(getClientIp(req));
+    if (!limit.allowed) {
+      res.setHeader('Retry-After', Math.ceil(limit.retryAfterMs / 1000));
+      sendJson(req, res, 429, {
+        error: 'Terlalu banyak permintaan. Coba lagi nanti.',
+        retryAfterMs: limit.retryAfterMs,
+      });
+      return;
+    }
+
     try {
       const raw = await readBody(req);
       const body = raw ? JSON.parse(raw) : {};
