@@ -134,20 +134,20 @@ export const skillGroups = [
   {
     title: 'Infrastruktur Jaringan',
     skills: [
-      { name: 'Fiber Optic', level: 90 },
-      { name: 'Jaringan WiFi', level: 88 },
-      { name: 'MikroTik', level: 85 },
+      { name: 'Fiber Optic' },
+      { name: 'Jaringan WiFi' },
+      { name: 'MikroTik' },
     ],
   },
   {
     title: 'Pemrograman Web',
     skills: [
-      { name: 'HTML & CSS', level: 85 },
-      { name: 'JavaScript', level: 75 },
-      { name: 'TypeScript', level: 70 },
-      { name: 'Python', level: 90 },
-      { name: 'React', level: 85 },
-      { name: 'Tailwind CSS', level: 80 },
+      { name: 'HTML & CSS' },
+      { name: 'JavaScript' },
+      { name: 'TypeScript' },
+      { name: 'Python' },
+      { name: 'React' },
+      { name: 'Tailwind CSS' },
     ],
   },
 ];
