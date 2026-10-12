@@ -101,6 +101,14 @@ export const projects = [
     link: 'https://semua-berhak-bisa.vercel.app/',
     year: '2026',
   },
+  {
+    name: 'Karang Taruna RT 02',
+    description:
+      'Website resmi Karang Taruna RT 02 — menampilkan profil organisasi, struktur pengurus, program kegiatan, dan informasi warga. Dibangun dengan React + Vite + Tailwind CSS dan di-deploy di Vercel.',
+    tech: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
+    link: 'https://karangtarunart2.vercel.app/',
+    year: '2026',
+  },
 ];
 
 export const awards = [
