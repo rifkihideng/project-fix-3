@@ -16,10 +16,16 @@ const TOUCH_DIRECTIONS = [
 // Sheet arah & ekspresi disimpan di public/mascots.
 export default function Mascot() {
   const mascotRef = useRef(null);
+  const lastUpdateRef = useRef(0);
   const [touchDirection, setTouchDirection] = useState(null);
 
   useEffect(() => {
     const onTouchMove = (event) => {
+      // Batasi pembaruan arah agar kepala tidak berubah terlalu cepat/jittery.
+      const now = Date.now();
+      if (now - lastUpdateRef.current < 90) return;
+      lastUpdateRef.current = now;
+
       const touch = event.touches[0];
       if (!touch) return;
       const button = mascotRef.current?.querySelector('button');
@@ -41,7 +47,10 @@ export default function Mascot() {
       );
     };
 
-    const reset = () => setTouchDirection(null);
+    const reset = () => {
+      lastUpdateRef.current = 0;
+      setTouchDirection(null);
+    };
 
     window.addEventListener('touchmove', onTouchMove, { passive: true });
     window.addEventListener('touchend', reset);
