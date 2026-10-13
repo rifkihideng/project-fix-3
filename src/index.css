@@ -421,34 +421,19 @@ kbd {
   box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.5);
 }
 
-/* Maskot pixel statis di pojok kiri bawah (di atas tombol WhatsApp) */
+/* Maskot interaktif di pojok kiri bawah (di atas tombol WhatsApp) */
 .mascot {
   position: fixed;
   left: 18px;
   bottom: 72px;
   z-index: 50;
-  pointer-events: none;
-}
-
-.mascot svg {
-  display: block;
-  transform-origin: 50% 100%;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .mascot svg {
-    animation: mascot-bob 2.6s ease-in-out infinite;
-  }
-}
-
-@keyframes mascot-bob {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(-4px) rotate(2deg);
+@media (max-width: 480px) {
+  .mascot {
+    transform: scale(0.8);
+    transform-origin: bottom left;
   }
 }
 
