@@ -430,6 +430,46 @@ kbd {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
 }
 
+.mascot > button {
+  touch-action: pan-y;
+}
+
+.mascot[data-touch-direction='up-left'] > button > span > span:first-child {
+  background-position: 0% 0% !important;
+}
+
+.mascot[data-touch-direction='up'] > button > span > span:first-child {
+  background-position: 50% 0% !important;
+}
+
+.mascot[data-touch-direction='up-right'] > button > span > span:first-child {
+  background-position: 100% 0% !important;
+}
+
+.mascot[data-touch-direction='left'] > button > span > span:first-child {
+  background-position: 0% 50% !important;
+}
+
+.mascot[data-touch-direction='center'] > button > span > span:first-child {
+  background-position: 50% 50% !important;
+}
+
+.mascot[data-touch-direction='right'] > button > span > span:first-child {
+  background-position: 100% 50% !important;
+}
+
+.mascot[data-touch-direction='down-left'] > button > span > span:first-child {
+  background-position: 0% 100% !important;
+}
+
+.mascot[data-touch-direction='down'] > button > span > span:first-child {
+  background-position: 50% 100% !important;
+}
+
+.mascot[data-touch-direction='down-right'] > button > span > span:first-child {
+  background-position: 100% 100% !important;
+}
+
 @media (max-width: 480px) {
   .mascot {
     transform: scale(0.72);
