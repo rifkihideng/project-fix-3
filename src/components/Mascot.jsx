@@ -41,8 +41,16 @@ export default function Mascot() {
       );
     };
 
+    const reset = () => setTouchDirection(null);
+
     window.addEventListener('touchmove', onTouchMove, { passive: true });
-    return () => window.removeEventListener('touchmove', onTouchMove);
+    window.addEventListener('touchend', reset);
+    window.addEventListener('touchcancel', reset);
+    return () => {
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', reset);
+      window.removeEventListener('touchcancel', reset);
+    };
   }, []);
 
   return (
