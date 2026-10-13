@@ -424,7 +424,7 @@ kbd {
 /* Maskot interaktif di pojok kiri bawah (di atas tombol WhatsApp) */
 .mascot {
   position: fixed;
-  left: 10px;
+  left: 0;
   bottom: 68px;
   z-index: 50;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
