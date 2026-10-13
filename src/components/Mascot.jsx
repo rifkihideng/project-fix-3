@@ -9,6 +9,7 @@ export default function Mascot() {
         directions="/mascots/cap-directions.webp"
         reactions="/mascots/cap-reactions.webp"
         label="mascot"
+        size={110}
       />
     </div>
   );

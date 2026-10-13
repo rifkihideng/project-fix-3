@@ -424,15 +424,15 @@ kbd {
 /* Maskot interaktif di pojok kiri bawah (di atas tombol WhatsApp) */
 .mascot {
   position: fixed;
-  left: 18px;
-  bottom: 72px;
+  left: 10px;
+  bottom: 68px;
   z-index: 50;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
 }
 
 @media (max-width: 480px) {
   .mascot {
-    transform: scale(0.8);
+    transform: scale(0.72);
     transform-origin: bottom left;
   }
 }
