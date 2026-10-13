@@ -139,6 +139,26 @@ function GithubCard() {
 export default function Hero() {
   const { t } = useLang();
   const sectionRef = useRef(null);
+  const [show3D, setShow3D] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return (
+      window.matchMedia('(min-width: 768px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+  });
+
+  useEffect(() => {
+    const widthQuery = window.matchMedia('(min-width: 768px)');
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setShow3D(widthQuery.matches && !motionQuery.matches);
+    update();
+    widthQuery.addEventListener('change', update);
+    motionQuery.addEventListener('change', update);
+    return () => {
+      widthQuery.removeEventListener('change', update);
+      motionQuery.removeEventListener('change', update);
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -158,12 +178,14 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} id="top" className="relative grid grid-cols-[minmax(0,1fr)] gap-12 pt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pt-20">
-      {/* Background 3D di belakang konten */}
-      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <Suspense fallback={null}>
-          <Hero3D />
-        </Suspense>
-      </div>
+      {/* Background 3D di belakang konten — hanya desktop untuk hemat data/baterai di HP. */}
+      {show3D && (
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+          <Suspense fallback={null}>
+            <Hero3D />
+          </Suspense>
+        </div>
+      )}
 
       {/* Kolom profil */}
       <div className="hero-col relative z-10 min-w-0">

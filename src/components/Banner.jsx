@@ -105,7 +105,9 @@ export default function Banner({ theme, onToggleTheme, onOpenPalette }) {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Menu"
+          aria-label={t.ui.menu}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
           className="rounded-lg border border-line bg-card p-2 text-muted transition hover:bg-soft lg:hidden"
         >
           {menuOpen ? <X size={16} /> : <Menu size={16} />}
@@ -113,6 +115,7 @@ export default function Banner({ theme, onToggleTheme, onOpenPalette }) {
       </div>
 
       <nav
+        id="mobile-nav"
         aria-hidden={!menuOpen}
         className={`mobile-menu lg:hidden ${menuOpen ? 'mobile-menu-open' : ''}`}
       >
@@ -122,6 +125,7 @@ export default function Banner({ theme, onToggleTheme, onOpenPalette }) {
               key={id}
               href={`#${id}`}
               onClick={() => setMenuOpen(false)}
+              tabIndex={menuOpen ? 0 : -1}
               className="rounded-md px-3 py-2 text-sm text-muted transition hover:bg-soft hover:text-foreground"
             >
               {t.ui.nav[id]}

@@ -55,13 +55,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background text-foreground antialiased transition-colors duration-300">
       <Preloader />
+      <a href="#main-content" className="skip-link">
+        {t.ui.skipToContent}
+      </a>
       <Banner
         theme={theme}
         onToggleTheme={toggleTheme}
         onOpenPalette={() => setPaletteOpen(true)}
       />
 
-      <main className="mx-auto max-w-5xl px-5 pb-20">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-5 pb-20">
         <Hero />
         <div className="mt-24 space-y-24">
           <Section id="about" title={t.ui.sections.about}>
