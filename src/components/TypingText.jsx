@@ -15,9 +15,16 @@ export default function TypingText({ text, speed = 45 }) {
   }, [text, speed]);
 
   return (
-    <span>
-      {text.slice(0, count)}
-      <span className="typing-caret" aria-hidden="true" />
+    <span className="relative inline-block max-w-full">
+      {/* Ghost teks penuh: reservasi ruang agar tidak ada layout shift saat mengetik */}
+      <span className="invisible" aria-hidden="true">
+        {text}
+        <span className="typing-caret" />
+      </span>
+      <span className="absolute inset-0">
+        {text.slice(0, count)}
+        <span className="typing-caret" aria-hidden="true" />
+      </span>
     </span>
   );
 }

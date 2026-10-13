@@ -17,7 +17,7 @@ export const site = {
   // Kosongkan jika belum ada foto — otomatis pakai inisial.
   avatar: '/images.png',
   // Daftar foto yang berputar otomatis di foto profil.
-  avatars: ['/images.png', '/profile.png'],
+  avatars: ['/images.png', '/profile.webp'],
 };
 
 export const socials = [
