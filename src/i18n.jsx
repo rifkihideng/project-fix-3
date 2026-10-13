@@ -157,6 +157,14 @@ const en = {
       link: 'https://semua-berhak-bisa.vercel.app/',
       year: '2026',
     },
+    {
+      name: 'Karang Taruna RT 02',
+      description:
+        'Official website of Karang Taruna RT 02 — showcasing the organization profile, board structure, activity programs, and resident information. Built with React + Vite + Tailwind CSS and deployed on Vercel.',
+      tech: ['React', 'Vite', 'Tailwind CSS', 'Vercel'],
+      link: 'https://karangtarunart2.vercel.app/',
+      year: '2026',
+    },
   ],
   awards: [
     {
