@@ -175,21 +175,6 @@ html {
 }
 
 /* Animasi */
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.animate-rise {
-  animation: rise 0.6s ease both;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -243,57 +228,6 @@ kbd {
 .spin-slow {
   display: inline-block;
   animation: spinSlow 7s linear infinite;
-}
-
-/* Reveal saat scroll */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 1s cubic-bezier(0.25, 0.8, 0.25, 1),
-    transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Stagger: judul muncul lebih dulu, lalu konten */
-.reveal > * {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.9s cubic-bezier(0.25, 0.8, 0.25, 1),
-    transform 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.reveal > *:nth-child(1) {
-  transition-delay: 0.15s;
-}
-.reveal > *:nth-child(2) {
-  transition-delay: 0.3s;
-}
-.reveal > *:nth-child(3) {
-  transition-delay: 0.45s;
-}
-.reveal > *:nth-child(4) {
-  transition-delay: 0.6s;
-}
-
-.reveal-visible > * {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal > * {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 /* Glow di belakang avatar — amber agar selaras dengan cincin */

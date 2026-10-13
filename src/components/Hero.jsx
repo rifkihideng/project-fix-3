@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import {
   Briefcase,
   Check,
@@ -14,6 +14,7 @@ import TypingText from './TypingText.jsx';
 import RotatingAvatar from './RotatingAvatar.jsx';
 import { showToast } from './Toast.jsx';
 import { useLang } from '../i18n.jsx';
+import { gsap, useGSAP } from '../lib/gsap';
 
 // Background 3D dimuat terpisah (code-split) agar tidak memberatkan load awal.
 const Hero3D = lazy(() => import('./Hero3D.jsx'));
@@ -137,9 +138,26 @@ function GithubCard() {
 
 export default function Hero() {
   const { t } = useLang();
+  const sectionRef = useRef(null);
+
+  useGSAP(
+    () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+      gsap.from(sectionRef.current.querySelectorAll('.hero-col'), {
+        autoAlpha: 0,
+        y: 14,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power2.out',
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="top" className="relative grid grid-cols-[minmax(0,1fr)] gap-12 pt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pt-20">
+    <section ref={sectionRef} id="top" className="relative grid grid-cols-[minmax(0,1fr)] gap-12 pt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pt-20">
       {/* Background 3D di belakang konten */}
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
         <Suspense fallback={null}>
@@ -148,7 +166,7 @@ export default function Hero() {
       </div>
 
       {/* Kolom profil */}
-      <div className="animate-rise relative z-10 min-w-0">
+      <div className="hero-col relative z-10 min-w-0">
         <div className="relative inline-block">
           <div className="hero-glow absolute -inset-6 rounded-full" aria-hidden="true" />
           <div className="avatar-ring relative inline-block">
@@ -197,7 +215,7 @@ export default function Hero() {
       </div>
 
       {/* Kolom overview & about */}
-      <div className="animate-rise relative z-10 min-w-0" style={{ animationDelay: '80ms' }}>
+      <div className="hero-col relative z-10 min-w-0">
         <div className="rounded-xl border border-line bg-card p-5">
           <h2 className="mb-2 text-sm font-semibold">{t.ui.overview}</h2>
           <div className="divide-y divide-line">

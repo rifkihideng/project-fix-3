@@ -1,40 +1,45 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useLang } from '../i18n.jsx';
 import { showToast } from './Toast.jsx';
+import { gsap, useGSAP } from '../lib/gsap';
 
 export default function Section({ id, title, count, children }) {
   const { t } = useLang();
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || typeof IntersectionObserver === 'undefined') {
-      setVisible(true);
-      return undefined;
-    }
+  useGSAP(
+    () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
 
-    // Jika section sudah terlihat saat mount, langsung tampilkan.
-    const rect = node.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setVisible(true);
-      return undefined;
-    }
+      const trigger = {
+        trigger: ref.current,
+        start: 'top 85%',
+        once: true,
+      };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+      gsap.fromTo(
+        ref.current,
+        { autoAlpha: 0, y: 30 },
+        { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out', scrollTrigger: trigger }
+      );
+
+      gsap.fromTo(
+        ref.current.children,
+        { autoAlpha: 0, y: 20 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          stagger: 0.15,
+          scrollTrigger: trigger,
+        }
+      );
+    },
+    { scope: ref }
+  );
 
   const copyLink = () => {
     const url = `${window.location.origin}${window.location.pathname}#${id}`;
@@ -44,7 +49,7 @@ export default function Section({ id, title, count, children }) {
 
   return (
     <section id={id} className="scroll-mt-24">
-      <div ref={ref} className={`reveal ${visible ? 'reveal-visible' : ''}`}>
+      <div ref={ref}>
         <div className="section-heading">
           <h2>
             {title}
