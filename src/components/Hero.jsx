@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Briefcase,
   Check,
@@ -12,12 +12,10 @@ import {
 import { BrandIcon, VerifiedBadge } from './icons.jsx';
 import TypingText from './TypingText.jsx';
 import RotatingAvatar from './RotatingAvatar.jsx';
+import HeroVideoBackground from './HeroVideoBackground.jsx';
 import { showToast } from './Toast.jsx';
 import { useLang } from '../i18n.jsx';
 import { gsap, useGSAP } from '../lib/gsap';
-
-// Background 3D dimuat terpisah (code-split) agar tidak memberatkan load awal.
-const Hero3D = lazy(() => import('./Hero3D.jsx'));
 
 function CopyButton({ value }) {
   const { t } = useLang();
@@ -139,7 +137,7 @@ function GithubCard() {
 export default function Hero() {
   const { t } = useLang();
   const sectionRef = useRef(null);
-  const [show3D, setShow3D] = useState(() => {
+  const [showVideo, setShowVideo] = useState(() => {
     if (typeof window === 'undefined') return false;
     return (
       window.matchMedia('(min-width: 768px)').matches &&
@@ -150,7 +148,7 @@ export default function Hero() {
   useEffect(() => {
     const widthQuery = window.matchMedia('(min-width: 768px)');
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setShow3D(widthQuery.matches && !motionQuery.matches);
+    const update = () => setShowVideo(widthQuery.matches && !motionQuery.matches);
     update();
     widthQuery.addEventListener('change', update);
     motionQuery.addEventListener('change', update);
@@ -178,13 +176,9 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} id="top" className="relative grid grid-cols-[minmax(0,1fr)] gap-12 pt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pt-20">
-      {/* Background 3D di belakang konten — hanya desktop untuk hemat data/baterai di HP. */}
-      {show3D && (
-        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-          <Suspense fallback={null}>
-            <Hero3D />
-          </Suspense>
-        </div>
+      {/* Background video di belakang konten — hanya desktop untuk hemat data/baterai di HP. */}
+      {showVideo && (
+        <HeroVideoBackground src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4" />
       )}
 
       {/* Kolom profil */}
