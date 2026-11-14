@@ -1,36 +1,39 @@
-import { BrandIcon } from './icons.jsx';
+import DoodleCrewFooter from './DoodleCrewFooter.jsx';
 import { useLang } from '../i18n.jsx';
 
+const NAV_IDS = ['about', 'experience', 'projects', 'skills', 'packages'];
+
 export default function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const year = new Date().getFullYear();
+  const isEn = lang === 'en';
+
+  const crew = [
+    { kind: 'yeti', letter: 0, seat: 'front', offset: -0.32, name: 'Bruno', says: isEn ? 'Hi! Got a project?' : 'Halo! Ada proyek?' },
+    { kind: 'bird', letter: 1, seat: 'top', offset: 0.02, name: 'Pip', says: isEn ? 'Follow my GitHub!' : 'Follow GitHub saya!' },
+    { kind: 'mushroom', letter: 2, seat: 'front', offset: 0.12, name: 'Morel', says: isEn ? 'Fiber optics are fun!' : 'Fiber optic, seru!' },
+    { kind: 'cat', letter: 4, seat: 'front', offset: 0.42, flip: true, name: 'Patch', says: isEn ? 'Arr. Nice cursor.' : 'Arr. Kursor keren.' },
+  ];
+
   return (
-    <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 px-5 py-10 text-center">
-        <span className="monogram">{t.site.monogram}</span>
-        <div>
-          <p className="font-medium">{t.site.name}</p>
-          <p className="mt-1 text-sm text-muted">{t.site.tagline}</p>
-        </div>
-
-        <div className="flex gap-2">
-          {t.socials.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={item.label}
-              className="rounded-lg border border-line bg-card p-2.5 text-muted transition hover:bg-soft hover:text-foreground"
-            >
-              <BrandIcon id={item.id} size={16} />
-            </a>
-          ))}
-        </div>
-
-        <p className="text-xs text-muted">
-          © {new Date().getFullYear()} {t.site.name} · {t.ui.footerBuilt}
-        </p>
-      </div>
-    </footer>
+    <DoodleCrewFooter
+      wordmark="RIFKI"
+      brand={t.site.name}
+      blurb={t.site.tagline}
+      tagline={t.site.status}
+      columns={[
+        { title: t.ui.menu, links: NAV_IDS.map((id) => ({ label: t.ui.nav[id], href: `#${id}` })) },
+      ]}
+      actions={[
+        { label: isEn ? 'Contact me' : 'Hubungi Saya', href: `https://wa.me/${t.site.whatsapp}`, icon: 'bolt', variant: 'solid' },
+        { label: 'GitHub', href: t.socials.find((s) => s.id === 'github')?.href, icon: 'star', variant: 'outline' },
+      ]}
+      copyright={`© ${year} ${t.site.name} · ${t.ui.footerBuilt}`}
+      socials={t.socials.map((s) => ({ label: s.label, href: s.href }))}
+      legal={[]}
+      crew={crew}
+      palette={{ accent: '#f59e0b' }}
+    />
   );
 }
+
