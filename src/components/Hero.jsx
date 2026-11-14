@@ -12,7 +12,6 @@ import {
 import { BrandIcon, VerifiedBadge } from './icons.jsx';
 import TypingText from './TypingText.jsx';
 import RotatingAvatar from './RotatingAvatar.jsx';
-import HeroVideoBackground from './HeroVideoBackground.jsx';
 import { showToast } from './Toast.jsx';
 import { useLang } from '../i18n.jsx';
 import { gsap, useGSAP } from '../lib/gsap';
@@ -137,26 +136,6 @@ function GithubCard() {
 export default function Hero() {
   const { t } = useLang();
   const sectionRef = useRef(null);
-  const [showVideo, setShowVideo] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return (
-      window.matchMedia('(min-width: 768px)').matches &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    );
-  });
-
-  useEffect(() => {
-    const widthQuery = window.matchMedia('(min-width: 768px)');
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setShowVideo(widthQuery.matches && !motionQuery.matches);
-    update();
-    widthQuery.addEventListener('change', update);
-    motionQuery.addEventListener('change', update);
-    return () => {
-      widthQuery.removeEventListener('change', update);
-      motionQuery.removeEventListener('change', update);
-    };
-  }, []);
 
   useGSAP(
     () => {
@@ -176,11 +155,6 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} id="top" className="relative grid grid-cols-[minmax(0,1fr)] gap-12 pt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pt-20">
-      {/* Background video di belakang konten — hanya desktop untuk hemat data/baterai di HP. */}
-      {showVideo && (
-        <HeroVideoBackground src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4" />
-      )}
-
       {/* Kolom profil */}
       <div className="hero-col relative z-10 min-w-0">
         <div className="relative inline-block">
@@ -232,7 +206,7 @@ export default function Hero() {
 
       {/* Kolom overview & about */}
       <div className="hero-col relative z-10 min-w-0">
-        <div className="rounded-xl border border-line bg-card p-5">
+        <div className="rounded-xl border border-line bg-card/75 p-5 backdrop-blur-md">
           <h2 className="mb-2 text-sm font-semibold">{t.ui.overview}</h2>
           <div className="divide-y divide-line">
             <OverviewRow icon={Briefcase} label={t.ui.role} value={t.site.role} />
@@ -244,7 +218,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl border border-line bg-card p-5">
+        <div className="mt-4 rounded-xl border border-line bg-card/75 p-5 backdrop-blur-md">
           <h2 className="mb-3 text-sm font-semibold">{t.ui.about}</h2>
           <ul className="space-y-2 text-sm leading-relaxed text-muted">
             {t.about.map((line, i) => (
@@ -256,7 +230,7 @@ export default function Hero() {
           </ul>
         </div>
 
-        <div className="mt-4 rounded-xl border border-line bg-card p-5">
+        <div className="mt-4 rounded-xl border border-line bg-card/75 p-5 backdrop-blur-md">
           <GithubCard />
         </div>
       </div>

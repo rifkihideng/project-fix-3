@@ -19,7 +19,11 @@ import WhatsAppChat from './components/WhatsAppChat.jsx';
 import ChatBot from './components/ChatBot.jsx';
 import Preloader from './components/Preloader.jsx';
 import Toast from './components/Toast.jsx';
+import HeroVideoBackground from './components/HeroVideoBackground.jsx';
 import { useLang } from './i18n.jsx';
+
+const VIDEO_SRC =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4';
 
 export default function App() {
   const { t } = useLang();
@@ -28,6 +32,18 @@ export default function App() {
     return localStorage.getItem('portfolio-theme') ?? 'dark';
   });
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [showVideo, setShowVideo] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+
+  useEffect(() => {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setShowVideo(!motionQuery.matches);
+    update();
+    motionQuery.addEventListener('change', update);
+    return () => motionQuery.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -54,68 +70,72 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground antialiased transition-colors duration-300">
-      <Preloader />
-      <a href="#main-content" className="skip-link">
-        {t.ui.skipToContent}
-      </a>
-      <Banner
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        onOpenPalette={() => setPaletteOpen(true)}
-      />
+      {showVideo && <HeroVideoBackground src={VIDEO_SRC} />}
 
-      <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-5 pb-20">
-        <Hero />
-        <div className="mt-24 space-y-24">
-          <Section id="about" title={t.ui.sections.about}>
-            <AboutMe />
-          </Section>
-          <Section id="experience" title={t.ui.sections.experience} count={t.experience.length}>
-            <Experience />
-          </Section>
-          <Section id="projects" title={t.ui.sections.projects} count={t.projects.length}>
-            <Projects />
-          </Section>
-          <Section id="awards" title={t.ui.sections.awards} count={t.awards.length}>
-            <Awards />
-          </Section>
-          <Section id="tools" title={t.ui.sections.tools}>
-            <Tools />
-          </Section>
-          <Section
-            id="skills"
-            title={t.ui.sections.skills}
-            count={t.skillGroups.reduce((n, group) => n + group.skills.length, 0)}
-          >
-            <Skills />
-          </Section>
-          <Section id="packages" title={t.ui.sections.packages} count={t.packages.length}>
-            <Packages />
-          </Section>
-          <Section id="testimonials" title={t.ui.sections.testimonials} count={t.testimonials.length}>
-            <Testimonials />
-          </Section>
-          <Section id="faq" title={t.ui.sections.faq} count={t.faqs.length}>
-            <Faq />
-          </Section>
-        </div>
-      </main>
-
-      <Footer />
-
-      <BackToTop />
-      <Mascot />
-      <WhatsAppChat />
-      <ChatBot />
-      <Toast />
-
-      {paletteOpen && (
-        <CommandPalette
-          onClose={() => setPaletteOpen(false)}
+      <div className="relative z-10">
+        <Preloader />
+        <a href="#main-content" className="skip-link">
+          {t.ui.skipToContent}
+        </a>
+        <Banner
           theme={theme}
           onToggleTheme={toggleTheme}
+          onOpenPalette={() => setPaletteOpen(true)}
         />
-      )}
+
+        <main id="main-content" tabIndex={-1} className="mx-auto max-w-5xl px-5 pb-20">
+          <Hero />
+          <div className="mt-24 space-y-24">
+            <Section id="about" title={t.ui.sections.about}>
+              <AboutMe />
+            </Section>
+            <Section id="experience" title={t.ui.sections.experience} count={t.experience.length}>
+              <Experience />
+            </Section>
+            <Section id="projects" title={t.ui.sections.projects} count={t.projects.length}>
+              <Projects />
+            </Section>
+            <Section id="awards" title={t.ui.sections.awards} count={t.awards.length}>
+              <Awards />
+            </Section>
+            <Section id="tools" title={t.ui.sections.tools}>
+              <Tools />
+            </Section>
+            <Section
+              id="skills"
+              title={t.ui.sections.skills}
+              count={t.skillGroups.reduce((n, group) => n + group.skills.length, 0)}
+            >
+              <Skills />
+            </Section>
+            <Section id="packages" title={t.ui.sections.packages} count={t.packages.length}>
+              <Packages />
+            </Section>
+            <Section id="testimonials" title={t.ui.sections.testimonials} count={t.testimonials.length}>
+              <Testimonials />
+            </Section>
+            <Section id="faq" title={t.ui.sections.faq} count={t.faqs.length}>
+              <Faq />
+            </Section>
+          </div>
+        </main>
+
+        <Footer />
+
+        <BackToTop />
+        <Mascot />
+        <WhatsAppChat />
+        <ChatBot />
+        <Toast />
+
+        {paletteOpen && (
+          <CommandPalette
+            onClose={() => setPaletteOpen(false)}
+            theme={theme}
+            onToggleTheme={toggleTheme}
+          />
+        )}
+      </div>
     </div>
   );
 }
