@@ -6,6 +6,7 @@ import {
   aboutStory,
   favoriteTools,
   experience,
+  education,
   projects,
   awards,
   tools,
@@ -18,6 +19,7 @@ const uiId = {
   nav: {
     about: 'About',
     experience: 'Experience',
+    education: 'Pendidikan',
     projects: 'Projects',
     awards: 'Awards',
     tools: 'Tools',
@@ -28,6 +30,7 @@ const uiId = {
   sections: {
     about: 'Tentang Saya',
     experience: 'Experience',
+    education: 'Pendidikan',
     projects: 'Projects',
     awards: 'Awards & Certifications',
     tools: 'Tech & Tools',
@@ -96,6 +99,24 @@ const en = {
     'Today I focus on building fast, responsive web applications, combining my networking and development background to deliver complete digital solutions.',
   ],
   favoriteTools: ['React', 'Vite', 'Tailwind CSS', 'MikroTik', 'TP-Link Omada'],
+  education: [
+    {
+      school: 'Universitas Insan Pembangunan',
+      logo: '/unipi-logo.png',
+      major: 'Informatics Engineering',
+      period: '2024 — Present',
+      description:
+        'I am currently continuing my studies in Informatics Engineering while actively building my own coding projects, such as Sumocode and 4Genz, to sharpen my skills in web and software application development.',
+    },
+    {
+      school: 'SMK Negeri 2 Kab. Tangerang',
+      logo: '/smkn2-logo.png',
+      major: 'Computer & Network Engineering',
+      period: '2021 — 2024',
+      description:
+        'During my time at SMK Negeri 2 Kab. Tangerang, I studied computer networking from the fundamentals — topology and IP addressing — through to configuring routers, switches, and access points, as well as troubleshooting and maintaining network infrastructure. This Computer & Network Engineering program built my networking foundation, which I later developed into a career in technology.',
+    },
+  ],
   experience: [
     {
       role: 'WiFi Fiber Optic Technician',
@@ -255,6 +276,7 @@ const en = {
     nav: {
       about: 'About',
       experience: 'Experience',
+      education: 'Education',
       projects: 'Projects',
       awards: 'Awards',
       tools: 'Tools',
@@ -265,6 +287,7 @@ const en = {
     sections: {
       about: 'About Me',
       experience: 'Experience',
+      education: 'Education',
       projects: 'Projects',
       awards: 'Awards & Certifications',
       tools: 'Tech & Tools',
@@ -315,7 +338,7 @@ const en = {
   },
 };
 
-const id = { site, socials, about, aboutStory, favoriteTools, experience, projects, awards, tools, skillGroups, testimonials, faqs, ui: uiId };
+const id = { site, socials, about, aboutStory, favoriteTools, experience, education, projects, awards, tools, skillGroups, testimonials, faqs, ui: uiId };
 
 const translations = { id, en };
 

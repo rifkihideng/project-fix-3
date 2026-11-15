@@ -68,6 +68,25 @@ export const experience = [
   },
 ];
 
+export const education = [
+  {
+    school: 'Universitas Insan Pembangunan',
+    logo: '/unipi-logo.png',
+    major: 'Teknik Informatika',
+    period: '2024 — Sekarang',
+    description:
+      'Saat ini saya melanjutkan studi di jurusan Teknik Informatika sambil aktif membangun project coding saya sendiri, seperti Sumocode dan 4Genz, untuk mengasah kemampuan dalam pengembangan aplikasi web dan perangkat lunak.',
+  },
+  {
+    school: 'SMK Negeri 2 Kab. Tangerang',
+    logo: '/smkn2-logo.png',
+    major: 'Teknik Komputer Jaringan',
+    period: '2021 — 2024',
+    description:
+      'Selama saya sekolah di SMK Negeri 2 Kab. Tangerang, saya mendalami jaringan komputer mulai dari dasar topologi dan pengalamatan IP, konfigurasi router, switch, dan access point, hingga troubleshooting dan pemeliharaan infrastruktur jaringan. Pembelajaran di jurusan Teknik Komputer Jaringan ini membentuk fondasi saya di bidang jaringan, yang kemudian saya kembangkan menjadi karier di dunia teknologi.',
+  },
+];
+
 export const projects = [
   {
     name: 'APEX RISE',
