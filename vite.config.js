@@ -15,4 +15,21 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    target: 'es2018',
+    cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        // Pisahkan dependensi besar ke chunk terpisah supaya bisa di-cache
+        // browser lebih lama dan dimuat paralel.
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined;
+          if (id.includes('gsap')) return 'gsap';
+          if (id.includes('lucide-react')) return 'icons';
+          if (id.includes('react') || id.includes('scheduler')) return 'react';
+          return 'vendor';
+        },
+      },
+    },
+  },
 });
