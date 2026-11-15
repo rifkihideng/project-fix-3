@@ -10,7 +10,6 @@ import {
   awards,
   tools,
   skillGroups,
-  packages,
   testimonials,
   faqs,
 } from './data/portfolio.js';
@@ -23,7 +22,6 @@ const uiId = {
     awards: 'Awards',
     tools: 'Tools',
     skills: 'Skills',
-    packages: 'Paket',
     testimonials: 'Testimoni',
     faq: 'FAQ',
   },
@@ -34,7 +32,6 @@ const uiId = {
     awards: 'Awards & Certifications',
     tools: 'Tech & Tools',
     skills: 'Skills',
-    packages: 'Paket Layanan',
     testimonials: 'Testimoni',
     faq: 'FAQ',
   },
@@ -205,75 +202,6 @@ const en = {
       ],
     },
   ],
-  packages: [
-    {
-      name: 'Personal Website',
-      price: 'Rp 250.000',
-      description: 'A ready-to-use personal website for portfolio, online CV, and personal branding. Present yourself professionally online without hassle.',
-      features: [
-        '1 landing page',
-        'Responsive design',
-        'Contact form / social links',
-        'Deploy + free .my.id domain',
-        '2x revisions',
-      ],
-    },
-    {
-      name: 'Wedding Invitation',
-      price: 'Rp 80.000',
-      description: 'An elegant digital wedding invitation that is easy to share. Includes countdown, photo gallery, RSVP, and map location. Customizable theme and couple names.',
-      features: [
-        'Wedding theme design',
-        'Countdown & event info (ceremony/reception)',
-        'Pre-wedding photo gallery',
-        'RSVP / attendance confirmation',
-        'Map location (Google Maps)',
-        'Digital envelope & background music',
-        'Free subdomain',
-      ],
-    },
-    {
-      name: 'UMKM Website',
-      price: 'Rp 750.000',
-      description: 'A website for small and medium businesses so your products are easier to find. Includes product catalog, WhatsApp integration, and basic SEO to attract more customers.',
-      features: [
-        'Up to 5 pages',
-        'Product gallery / catalog',
-        'Basic SEO optimization',
-        'WhatsApp integration',
-        'Deploy + free .com domain',
-        '3x revisions',
-      ],
-    },
-    {
-      name: 'Company Profile',
-      price: 'Rp 1.500.000',
-      description: 'A professional company profile to build business credibility. Premium design, complete pages, blog/news, plus SEO and analytics for corporate needs.',
-      features: [
-        'Complete pages (up to 10)',
-        'Premium custom design',
-        'Blog / news',
-        'SEO optimization',
-        'Analytics integration',
-        'Free .co.id domain',
-        '5x revisions',
-      ],
-    },
-    {
-      name: 'Online Store & Payment',
-      price: 'Rp 2.500.000',
-      description: 'A website with complete online transaction and payment features. Perfect for online stores needing product catalog, cart, payment gateway, and admin dashboard.',
-      features: [
-        'Product catalog & cart',
-        'Payment gateway integration',
-        'Admin dashboard',
-        'Order management',
-        'Basic security (SSL)',
-        'Free .store domain',
-        '5x revisions',
-      ],
-    },
-  ],
   testimonials: [
     {
       name: 'Budi Santoso',
@@ -331,7 +259,6 @@ const en = {
       awards: 'Awards',
       tools: 'Tools',
       skills: 'Skills',
-      packages: 'Packages',
       testimonials: 'Testimonials',
       faq: 'FAQ',
     },
@@ -342,7 +269,6 @@ const en = {
       awards: 'Awards & Certifications',
       tools: 'Tech & Tools',
       skills: 'Skills',
-      packages: 'Service Packages',
       testimonials: 'Testimonials',
       faq: 'FAQ',
     },
@@ -389,7 +315,7 @@ const en = {
   },
 };
 
-const id = { site, socials, about, aboutStory, favoriteTools, experience, projects, awards, tools, skillGroups, packages, testimonials, faqs, ui: uiId };
+const id = { site, socials, about, aboutStory, favoriteTools, experience, projects, awards, tools, skillGroups, testimonials, faqs, ui: uiId };
 
 const translations = { id, en };
 

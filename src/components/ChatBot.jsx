@@ -15,7 +15,7 @@ export default function ChatBot() {
           offline:
             'Server chatbot belum aktif. Jalankan `node server.js` dan isi GROQ_API_KEY di file .env.',
           ratelimited: 'Terlalu banyak pesan. Tunggu sebentar ya, lalu coba lagi.',
-          chips: ['Paket & harga', 'Layanan jaringan', 'Cara order'],
+          chips: ['Layanan web', 'Layanan jaringan', 'Cara order'],
         }
       : {
           title: 'AI Assistant',
@@ -25,7 +25,7 @@ export default function ChatBot() {
           offline:
             'The chatbot server is offline. Run `node server.js` and set GROQ_API_KEY in the .env file.',
           ratelimited: 'Too many messages. Please wait a moment and try again.',
-          chips: ['Packages & pricing', 'Network services', 'How to order'],
+          chips: ['Web services', 'Network services', 'How to order'],
         };
 
   const [open, setOpen] = useState(false);
