@@ -24,6 +24,8 @@ export default function Experience() {
                 <img
                   src={job.logo}
                   alt={`${job.company} logo`}
+                  loading="lazy"
+                  decoding="async"
                   className="h-6 w-auto object-contain"
                 />
               )}

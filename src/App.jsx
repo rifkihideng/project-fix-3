@@ -1,26 +1,28 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Banner from './components/Banner.jsx';
 import Hero from './components/Hero.jsx';
 import AboutMe from './components/AboutMe.jsx';
 import Section from './components/Section.jsx';
 import Experience from './components/Experience.jsx';
 import Projects from './components/Projects.jsx';
-import Awards from './components/Awards.jsx';
 import Tools from './components/Tools.jsx';
 import Skills from './components/Skills.jsx';
 import Packages from './components/Packages.jsx';
 import Testimonials from './components/Testimonials.jsx';
 import Faq from './components/Faq.jsx';
-import Footer from './components/Footer.jsx';
-import CommandPalette from './components/CommandPalette.jsx';
 import BackToTop from './components/BackToTop.jsx';
 import Mascot from './components/Mascot.jsx';
 import WhatsAppChat from './components/WhatsAppChat.jsx';
-import ChatBot from './components/ChatBot.jsx';
 import Preloader from './components/Preloader.jsx';
 import Toast from './components/Toast.jsx';
 import HeroVideoBackground from './components/HeroVideoBackground.jsx';
 import { useLang } from './i18n.jsx';
+
+// Komponen berat yang tidak terlihat di layar pertama dimuat on-demand.
+const Awards = lazy(() => import('./components/Awards.jsx'));
+const Footer = lazy(() => import('./components/Footer.jsx'));
+const ChatBot = lazy(() => import('./components/ChatBot.jsx'));
+const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
 
 const VIDEO_SRC =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4';
@@ -96,7 +98,9 @@ export default function App() {
               <Projects />
             </Section>
             <Section id="awards" title={t.ui.sections.awards} count={t.awards.length}>
-              <Awards />
+              <Suspense fallback={<div className="flex h-80 items-center justify-center text-muted">…</div>}>
+                <Awards />
+              </Suspense>
             </Section>
             <Section id="tools" title={t.ui.sections.tools}>
               <Tools />
@@ -120,20 +124,26 @@ export default function App() {
           </div>
         </main>
 
-        <Footer />
+        <Suspense fallback={<footer className="min-h-[50vh]" />}>
+          <Footer />
+        </Suspense>
 
         <BackToTop />
         <Mascot />
         <WhatsAppChat />
-        <ChatBot />
+        <Suspense fallback={null}>
+          <ChatBot />
+        </Suspense>
         <Toast />
 
         {paletteOpen && (
-          <CommandPalette
-            onClose={() => setPaletteOpen(false)}
-            theme={theme}
-            onToggleTheme={toggleTheme}
-          />
+          <Suspense fallback={null}>
+            <CommandPalette
+              onClose={() => setPaletteOpen(false)}
+              theme={theme}
+              onToggleTheme={toggleTheme}
+            />
+          </Suspense>
         )}
       </div>
     </div>

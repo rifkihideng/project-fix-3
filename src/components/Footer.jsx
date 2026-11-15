@@ -32,7 +32,7 @@ export default function Footer() {
       socials={t.socials.map((s) => ({ label: s.label, href: s.href }))}
       legal={[]}
       crew={crew}
-      palette={{ accent: '#f59e0b' }}
+      palette={{ accent: '#f59e0b', background: 'transparent' }}
     />
   );
 }
