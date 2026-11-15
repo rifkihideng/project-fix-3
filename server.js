@@ -5,7 +5,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { site, packages, faqs } from './src/data/portfolio.js';
+import { site, faqs } from './src/data/portfolio.js';
 import { corsHeaders } from './lib/cors.js';
 import { createRateLimiter, getClientIp } from './lib/rate-limit.js';
 
@@ -59,9 +59,6 @@ const SYSTEM_PROMPT = [
   `- Telepon: ${site.phone}`,
   `- WhatsApp: ${site.whatsapp}`,
   `- Status: ${site.status}`,
-  '',
-  'Layanan / paket yang tersedia:',
-  ...packages.map((p) => `- ${p.name}: ${p.price} — ${p.description}`),
   '',
   'FAQ:',
   ...faqs.map((f) => `- Q: ${f.question}\n  A: ${f.answer}`),

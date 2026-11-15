@@ -4,6 +4,7 @@ import Hero from './components/Hero.jsx';
 import AboutMe from './components/AboutMe.jsx';
 import Section from './components/Section.jsx';
 import Experience from './components/Experience.jsx';
+import Education from './components/Education.jsx';
 import Projects from './components/Projects.jsx';
 import Tools from './components/Tools.jsx';
 import Skills from './components/Skills.jsx';
@@ -92,6 +93,9 @@ export default function App() {
             </Section>
             <Section id="experience" title={t.ui.sections.experience} count={t.experience.length}>
               <Experience />
+            </Section>
+            <Section id="education" title={t.ui.sections.education} count={t.education.length}>
+              <Education />
             </Section>
             <Section id="projects" title={t.ui.sections.projects} count={t.projects.length}>
               <Projects />

@@ -1,7 +1,7 @@
 import DoodleCrewFooter from './DoodleCrewFooter.jsx';
 import { useLang } from '../i18n.jsx';
 
-const NAV_IDS = ['about', 'experience', 'projects', 'skills'];
+const NAV_IDS = ['about', 'experience', 'education', 'projects', 'skills'];
 
 export default function Footer() {
   const { t, lang } = useLang();
