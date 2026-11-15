@@ -7,7 +7,6 @@ import Experience from './components/Experience.jsx';
 import Projects from './components/Projects.jsx';
 import Tools from './components/Tools.jsx';
 import Skills from './components/Skills.jsx';
-import Packages from './components/Packages.jsx';
 import Testimonials from './components/Testimonials.jsx';
 import Faq from './components/Faq.jsx';
 import BackToTop from './components/BackToTop.jsx';
@@ -111,9 +110,6 @@ export default function App() {
               count={t.skillGroups.reduce((n, group) => n + group.skills.length, 0)}
             >
               <Skills />
-            </Section>
-            <Section id="packages" title={t.ui.sections.packages} count={t.packages.length}>
-              <Packages />
             </Section>
             <Section id="testimonials" title={t.ui.sections.testimonials} count={t.testimonials.length}>
               <Testimonials />
