@@ -5,7 +5,6 @@ const NAV_IDS = ['about', 'experience', 'education', 'projects', 'skills'];
 
 export default function Footer() {
   const { t, lang } = useLang();
-  const year = new Date().getFullYear();
   const isEn = lang === 'en';
 
   const crew = [
@@ -28,7 +27,7 @@ export default function Footer() {
         { label: isEn ? 'Contact me' : 'Hubungi Saya', href: `https://wa.me/${t.site.whatsapp}`, icon: 'bolt', variant: 'solid' },
         { label: 'GitHub', href: t.socials.find((s) => s.id === 'github')?.href, icon: 'star', variant: 'outline' },
       ]}
-      copyright={`© ${year} ${t.site.name} · ${t.ui.footerBuilt}`}
+      copyright="© Portofolio Rifki Ardiyansah 2026"
       socials={t.socials.map((s) => ({ label: s.label, href: s.href }))}
       legal={[]}
       crew={crew}

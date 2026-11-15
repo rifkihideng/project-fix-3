@@ -852,3 +852,22 @@ button:focus-visible {
     opacity: 0.6;
   }
 }
+
+/* DoodleCrewFooter dipakai dengan background transparan, sehingga warna teks
+   tombol solid (--dcf-bg) jadi transparan dan labelnya hilang. Gunakan warna
+   background halaman agar label tetap kontras dengan tombol. */
+.dcf .dcf-btn.is-solid {
+  color: var(--color-background);
+}
+
+/* Copyright footer: teks dipusatkan di barisnya sendiri. */
+.dcf .dcf-bar {
+  justify-content: center;
+}
+
+.dcf .dcf-copy {
+  width: 100%;
+  margin-right: 0;
+  text-align: center;
+}
+
