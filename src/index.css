@@ -467,6 +467,7 @@ button:focus-visible {
   inset: 0;
   z-index: 10000;
   overflow: hidden;
+  touch-action: none;
   transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 

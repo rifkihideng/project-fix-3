@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  animate,
   motion,
   useMotionValue,
   useReducedMotion,
@@ -141,19 +140,61 @@ export default function TunnelLoader() {
     restDelta: 0.0001,
   });
 
-  // Autoplay: progress 0 → 1 lalu fade out.
-  useEffect(() => {
-    if (reduce) {
-      setPhase('done');
-      return undefined;
+  // Majukan progress secara manual (scroll wheel/trackpad & geser layar sentuh).
+  // Saat mencapai ujung (1), kunci dan mulai fade out.
+  const finishedRef = useRef(false);
+  const advanceRef = useRef(() => {});
+  advanceRef.current = (delta) => {
+    if (finishedRef.current) return;
+    const next = Math.min(1, Math.max(0, rawProgress.get() + delta));
+    rawProgress.set(next);
+    if (next >= 1) {
+      finishedRef.current = true;
+      setPhase('fading');
     }
-    const controls = animate(rawProgress, 1, {
-      duration: 2.6,
-      ease: [0.22, 1, 0.36, 1],
-      onComplete: () => setPhase('fading'),
-    });
-    return () => controls.stop();
-  }, [reduce, rawProgress]);
+  };
+
+  // Scroll wheel / trackpad (desktop).
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || reduce) return undefined;
+    const onWheel = (event) => {
+      event.preventDefault();
+      advanceRef.current(event.deltaY * 0.0008);
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [reduce]);
+
+  // Geser (swipe) vertikal di layar sentuh.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || reduce) return undefined;
+    let lastY = null;
+    const onStart = (event) => {
+      lastY = event.touches[0]?.clientY ?? null;
+    };
+    const onMove = (event) => {
+      const y = event.touches[0]?.clientY;
+      if (lastY == null || y == null) return;
+      const deltaY = lastY - y;
+      lastY = y;
+      advanceRef.current(deltaY * 0.003);
+    };
+    const onEnd = () => {
+      lastY = null;
+    };
+    el.addEventListener('touchstart', onStart, { passive: true });
+    el.addEventListener('touchmove', onMove, { passive: true });
+    el.addEventListener('touchend', onEnd);
+    el.addEventListener('touchcancel', onEnd);
+    return () => {
+      el.removeEventListener('touchstart', onStart);
+      el.removeEventListener('touchmove', onMove);
+      el.removeEventListener('touchend', onEnd);
+      el.removeEventListener('touchcancel', onEnd);
+    };
+  }, [reduce]);
 
   useEffect(() => {
     if (phase !== 'fading') return undefined;
