@@ -65,6 +65,10 @@ const uiId = {
   linkCopied: 'Tautan bagian disalin.',
   hoverToOpen: 'Arahkan untuk memiringkan · Klik folder, lalu klik sertifikat untuk melihat',
   close: 'Tutup',
+  loaderEyebrow: 'Web Developer & Teknisi Jaringan',
+  loaderTitle1: 'RIFKI',
+  loaderTitle2: 'ARDIYANSAH.',
+  loaderDescription: 'Scroll atau geser untuk menjelajah.',
   footerBuilt: 'Dibangun dengan React, Vite & Tailwind CSS',
   langLabel: 'English',
   palette: {
@@ -321,6 +325,10 @@ const en = {
     linkCopied: 'Section link copied.',
     hoverToOpen: 'Hover to lean · Click the folder, then a certificate to view',
     close: 'Close',
+    loaderEyebrow: 'Web Developer & Network Engineer',
+    loaderTitle1: 'RIFKI',
+    loaderTitle2: 'ARDIYANSAH.',
+    loaderDescription: 'Scroll or swipe to explore.',
     footerBuilt: 'Built with React, Vite & Tailwind CSS',
     langLabel: 'Bahasa Indonesia',
     palette: {

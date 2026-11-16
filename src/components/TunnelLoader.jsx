@@ -6,6 +6,7 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
+import { useLang } from '../i18n.jsx';
 
 const IMAGES = [
   { src: 'https://cdn.21st.dev/assets/mirror/c3/c3fbd2afa140223999a441b32ed986f61d473930002708df805a81532a326aac.jpg', title: 'Chroma I' },
@@ -109,6 +110,7 @@ function TunnelCard({ card, progress, pointer, total, stage }) {
 }
 
 export default function TunnelLoader() {
+  const { t } = useLang();
   const containerRef = useRef(null);
   const reduce = useReducedMotion();
 
@@ -234,15 +236,15 @@ export default function TunnelLoader() {
         className="pointer-events-none z-0 flex max-w-xl flex-col items-center px-6 text-center"
       >
         <p className="mb-4 font-mono text-xs uppercase tracking-[0.4em] text-indigo-600 dark:text-indigo-400">
-          Warp Drive Sequence
+          {t.ui.loaderEyebrow}
         </p>
         <h1 className="bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-400 bg-clip-text text-5xl font-bold leading-[0.9] tracking-tighter text-transparent dark:from-white dark:via-white dark:to-white/40 sm:text-7xl md:text-8xl">
-          INTO THE
+          {t.ui.loaderTitle1}
           <br />
-          ETHER.
+          {t.ui.loaderTitle2}
         </h1>
         <p className="mt-4 max-w-[36ch] text-sm font-light text-neutral-600 dark:text-neutral-400 sm:text-base">
-          Scroll your trackpad or mouse wheel to fly through the spatial 3D corridor.
+          {t.ui.loaderDescription}
         </p>
       </motion.div>
 
