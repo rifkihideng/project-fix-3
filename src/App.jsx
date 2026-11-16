@@ -12,7 +12,6 @@ import Testimonials from './components/Testimonials.jsx';
 import Faq from './components/Faq.jsx';
 import BackToTop from './components/BackToTop.jsx';
 import Mascot from './components/Mascot.jsx';
-import WhatsAppChat from './components/WhatsAppChat.jsx';
 import Preloader from './components/Preloader.jsx';
 import Toast from './components/Toast.jsx';
 import HeroVideoBackground from './components/HeroVideoBackground.jsx';
@@ -130,7 +129,6 @@ export default function App() {
 
         <BackToTop />
         <Mascot />
-        <WhatsAppChat />
         <Suspense fallback={null}>
           <ChatBot />
         </Suspense>

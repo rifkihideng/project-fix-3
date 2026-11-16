@@ -65,7 +65,6 @@ const uiId = {
   linkCopied: 'Tautan bagian disalin.',
   hoverToOpen: 'Arahkan untuk memiringkan · Klik folder, lalu klik sertifikat untuk melihat',
   close: 'Tutup',
-  whatsappMessage: 'Halo Rifki, saya ingin bertanya tentang layanan kamu.',
   footerBuilt: 'Dibangun dengan React, Vite & Tailwind CSS',
   langLabel: 'English',
   palette: {
@@ -322,7 +321,6 @@ const en = {
     linkCopied: 'Section link copied.',
     hoverToOpen: 'Hover to lean · Click the folder, then a certificate to view',
     close: 'Close',
-    whatsappMessage: 'Hi Rifki, I would like to ask about your services.',
     footerBuilt: 'Built with React, Vite & Tailwind CSS',
     langLabel: 'Bahasa Indonesia',
     palette: {
