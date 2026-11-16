@@ -467,8 +467,6 @@ button:focus-visible {
   inset: 0;
   z-index: 10000;
   overflow: hidden;
-  background: var(--bg);
-  color: var(--fg);
   transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
@@ -476,14 +474,6 @@ button:focus-visible {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-}
-
-.tunnel-grid {
-  background-image: radial-gradient(var(--line) 1px, transparent 1px);
-  background-size: 28px 28px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%);
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 60%, transparent 100%);
-  opacity: 0.7;
 }
 
 /* Marquee tools */

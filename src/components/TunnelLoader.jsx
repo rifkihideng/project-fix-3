@@ -7,25 +7,36 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
-import { useLang } from '../i18n.jsx';
 
-const SPRING_CONFIG = { stiffness: 60, damping: 25, mass: 0.5 };
-
-// Palet gradasi mengikuti aksen situs (amber → pink → violet).
-const CARD_GRADIENTS = [
-  'linear-gradient(135deg, #f59e0b, #ec4899)',
-  'linear-gradient(135deg, #ec4899, #8b5cf6)',
-  'linear-gradient(135deg, #8b5cf6, #f59e0b)',
-  'linear-gradient(135deg, #f59e0b, #8b5cf6)',
-  'linear-gradient(135deg, #ec4899, #f59e0b)',
-  'linear-gradient(135deg, #8b5cf6, #ec4899)',
-  'linear-gradient(135deg, #f59e0b, #d946ef)',
-  'linear-gradient(135deg, #d946ef, #8b5cf6)',
-  'linear-gradient(135deg, #8b5cf6, #f59e0b)',
+const IMAGES = [
+  { src: 'https://cdn.21st.dev/assets/mirror/c3/c3fbd2afa140223999a441b32ed986f61d473930002708df805a81532a326aac.jpg', title: 'Chroma I' },
+  { src: 'https://cdn.21st.dev/assets/mirror/9d/9d8b2f675a5814476ada3736ce439bcda23c5c389e0ebf9b25d8a0c09f3bbcfe.jpg', title: 'Prism III' },
+  { src: 'https://cdn.21st.dev/assets/mirror/8b/8bb738bf2f00d7f7ed3c3ec034adb9938ad38f4be4ac191d632a6a11ad525574.jpg', title: 'Ether IV' },
+  { src: 'https://cdn.21st.dev/assets/mirror/ac/ac5ac700b188d7ef16ee9dab868098b59f15c440db3f71d4e8c03262a3287577.jpg', title: 'Quantum V' },
+  { src: 'https://cdn.21st.dev/assets/mirror/ef/ef25eff6ce655fba459b3b7e7711524dc92499aa18f6c7dbea9a0fcc56a8f908.jpg', title: 'Nebula VI' },
+  { src: 'https://cdn.21st.dev/assets/mirror/f2/f28b370a5dcbf76240f1504579c4b05fc0ff0bb990a42aff8dc2f73a5dc46072.jpg', title: 'Cyber VII' },
+  { src: 'https://cdn.21st.dev/assets/mirror/f2/f26a1eac85704dda924820392dedfb72d51d8261d35354f83b35d683617295f3.jpg', title: 'Flux VIII' },
+  { src: 'https://cdn.21st.dev/assets/mirror/77/7755d23eaaa0aa5b403343f44afa7a29b2d06d3065fe54c602b14ba01d00f2aa.jpg', title: 'Aether IX' },
+  { src: 'https://cdn.21st.dev/assets/mirror/65/657317761fe9058a1d43711b13c543a71eb5199b7a5d9abf4c28479674e39cf7.jpg', title: 'Chroma X' },
 ];
 
-// Huruf inisial nama untuk tiap kartu.
-const CARD_LABELS = ['R', 'I', 'F', 'K', 'I', 'A', 'R', 'D', 'I'];
+const TUNNEL_CARDS = IMAGES.map((item, i) => {
+  const goldenAngle = i * 137.5 * (Math.PI / 180);
+  const radiusFactorX = 0.28 + (i % 3) * 0.08;
+  const radiusFactorY = 0.26 + (i % 2) * 0.09;
+
+  return {
+    item,
+    angleCos: Math.cos(goldenAngle),
+    angleSin: Math.sin(goldenAngle),
+    radiusFactorX,
+    radiusFactorY,
+    rotationZ: (i % 2 === 0 ? 1 : -1) * (3 + (i % 5) * 2),
+    index: i,
+  };
+});
+
+const SPRING_CONFIG = { stiffness: 60, damping: 25, mass: 0.5 };
 
 function useCameraParallax(enabled) {
   const rawX = useMotionValue(0);
@@ -79,23 +90,18 @@ function TunnelCard({ card, progress, pointer, total, stage }) {
   return (
     <motion.div
       style={{ width: cardWidth, transform, opacity, zIndex: card.index + 1 }}
-      className="absolute left-1/2 top-1/2 aspect-[4/5] select-none will-change-transform"
+      className="pointer-events-auto absolute left-1/2 top-1/2 aspect-[4/5] cursor-pointer select-none will-change-transform"
     >
-      <div
-        className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl shadow-black/40 ring-1 ring-black/10 dark:ring-white/15"
-        style={{ background: card.gradient }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-6xl font-bold tracking-tighter text-white/95 drop-shadow-md">
-            {card.label}
-          </span>
-        </div>
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/80">
-            {card.monogram}
-          </span>
-          <span className="font-mono text-[10px] tracking-widest text-white/60">
-            {String(card.index + 1).padStart(2, '0')}
+      <div className="group relative h-full w-full overflow-hidden rounded-2xl bg-neutral-200 shadow-2xl shadow-neutral-950/20 ring-1 ring-black/10 transition-all duration-500 hover:shadow-indigo-500/25 hover:ring-indigo-500/70 dark:bg-neutral-900 dark:shadow-black/90 dark:ring-white/15 dark:hover:ring-indigo-400/70">
+        <img
+          src={card.item.src}
+          alt={card.item.title}
+          draggable={false}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        />
+        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-black/10 to-transparent p-4 sm:p-5">
+          <span className="font-mono text-xs uppercase tracking-widest text-white/95 drop-shadow-md sm:text-sm">
+            {card.item.title}
           </span>
         </div>
       </div>
@@ -104,9 +110,6 @@ function TunnelCard({ card, progress, pointer, total, stage }) {
 }
 
 export default function TunnelLoader() {
-  const { t } = useLang();
-  const monogram = t.site.monogram || 'RA';
-
   const containerRef = useRef(null);
   const reduce = useReducedMotion();
 
@@ -145,7 +148,7 @@ export default function TunnelLoader() {
       return undefined;
     }
     const controls = animate(rawProgress, 1, {
-      duration: 2.4,
+      duration: 2.6,
       ease: [0.22, 1, 0.36, 1],
       onComplete: () => setPhase('fading'),
     });
@@ -162,22 +165,7 @@ export default function TunnelLoader() {
 
   const titleScale = useTransform(smoothProgress, [0, 0.5, 1], [0.7, 1, 1.35]);
   const titleOpacity = useTransform(smoothProgress, [0, 0.12, 0.85, 1], [0.25, 1, 1, 0]);
-  const percent = useTransform(smoothProgress, (value) => `${Math.min(100, Math.round(value * 100))}%`);
-
-  const cards = CARD_GRADIENTS.map((gradient, i) => {
-    const goldenAngle = i * 137.5 * (Math.PI / 180);
-    return {
-      gradient,
-      monogram,
-      label: CARD_LABELS[i % CARD_LABELS.length],
-      angleCos: Math.cos(goldenAngle),
-      angleSin: Math.sin(goldenAngle),
-      radiusFactorX: 0.28 + (i % 3) * 0.08,
-      radiusFactorY: 0.26 + (i % 2) * 0.09,
-      rotationZ: (i % 2 === 0 ? 1 : -1) * (3 + (i % 5) * 2),
-      index: i,
-    };
-  });
+  const promptOpacity = useTransform(smoothProgress, [0, 0.12], [1, 0]);
 
   if (phase === 'done') return null;
 
@@ -185,50 +173,56 @@ export default function TunnelLoader() {
     <div
       ref={containerRef}
       aria-hidden="true"
-      className={`tunnel-loader ${phase === 'fading' ? 'tunnel-loader-hide' : ''}`}
+      className={`tunnel-loader ${phase === 'fading' ? 'tunnel-loader-hide' : ''} flex select-none items-center justify-center bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-white`}
       style={{
         perspective: stage.isMobile ? '900px' : '1200px',
         transformStyle: 'preserve-3d',
       }}
     >
-      {/* Latar grid + glow */}
-      <div className="tunnel-grid pointer-events-none absolute inset-0" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.14)_0%,transparent_70%)]" />
+      {/* Immersive background grid & glow */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] opacity-70 [background-size:28px_28px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,#000_60%,transparent_100%)] dark:bg-[radial-gradient(#1e1b4b_1px,transparent_1px)] dark:opacity-65" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.2)_0%,transparent_75%)]" />
 
-      {/* Cincin pemandu kedalaman */}
-      <div className="pointer-events-none absolute h-[48vmin] w-[48vmin] rounded-full border border-accent/20" />
-      <div className="pointer-events-none absolute h-[76vmin] w-[76vmin] rounded-full border border-dashed border-line" />
+      {/* Depth ring guides */}
+      <div className="pointer-events-none absolute h-[48vmin] w-[48vmin] rounded-full border border-indigo-500/15 dark:border-indigo-400/10" />
+      <div className="pointer-events-none absolute h-[76vmin] w-[76vmin] rounded-full border border-dashed border-neutral-300/60 dark:border-white/10" />
 
-      {/* Teks tengah */}
+      {/* Central anchor typography */}
       <motion.div
         style={{ scale: titleScale, opacity: titleOpacity }}
-        className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center px-6 text-center"
+        className="pointer-events-none z-0 flex max-w-xl flex-col items-center px-6 text-center"
       >
-        <p className="mb-4 font-mono text-xs uppercase tracking-[0.4em] text-accent">
-          {t.site.name}
+        <p className="mb-4 font-mono text-xs uppercase tracking-[0.4em] text-indigo-600 dark:text-indigo-400">
+          Warp Drive Sequence
         </p>
-        <h1 className="bg-gradient-to-b from-accent via-accent to-[#ec4899] bg-clip-text text-6xl font-bold leading-[0.9] tracking-tighter text-transparent sm:text-8xl md:text-9xl">
-          {monogram}
+        <h1 className="bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-400 bg-clip-text text-5xl font-bold leading-[0.9] tracking-tighter text-transparent dark:from-white dark:via-white dark:to-white/40 sm:text-7xl md:text-8xl">
+          INTO THE
+          <br />
+          ETHER.
         </h1>
+        <p className="mt-4 max-w-[36ch] text-sm font-light text-neutral-600 dark:text-neutral-400 sm:text-base">
+          Scroll your trackpad or mouse wheel to fly through the spatial 3D corridor.
+        </p>
       </motion.div>
 
-      {/* Indikator persentase */}
-      <motion.div className="absolute inset-x-0 bottom-8 z-20 flex flex-col items-center gap-2">
-        <motion.span className="font-mono text-xs uppercase tracking-[0.3em] text-muted">
-          {percent}
-        </motion.span>
-        <div className="h-6 w-px bg-gradient-to-b from-accent to-transparent" />
+      {/* Scroll prompt */}
+      <motion.div
+        style={{ opacity: promptOpacity }}
+        className="pointer-events-none absolute bottom-8 z-20 flex flex-col items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400"
+      >
+        <span>Scroll to Explore</span>
+        <div className="h-6 w-px bg-gradient-to-b from-indigo-500 to-transparent" />
       </motion.div>
 
-      {/* Bidang 3D untuk kartu */}
+      {/* 3D z-space plane */}
       <div className="pointer-events-none absolute inset-0" style={{ transformStyle: 'preserve-3d' }}>
-        {cards.map((card) => (
+        {TUNNEL_CARDS.map((card) => (
           <TunnelCard
             key={card.index}
             card={card}
             progress={smoothProgress}
             pointer={pointer}
-            total={cards.length}
+            total={TUNNEL_CARDS.length}
             stage={stage}
           />
         ))}
