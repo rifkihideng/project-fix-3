@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "framer-motion": "^14.14.0",
     "gsap": "^3.15.0",
     "lucide-react": "^0.468.0",
     "page-mascot": "^0.1.0",

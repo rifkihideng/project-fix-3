@@ -12,7 +12,7 @@ import Testimonials from './components/Testimonials.jsx';
 import Faq from './components/Faq.jsx';
 import BackToTop from './components/BackToTop.jsx';
 import Mascot from './components/Mascot.jsx';
-import Preloader from './components/Preloader.jsx';
+import TunnelLoader from './components/TunnelLoader.jsx';
 import Toast from './components/Toast.jsx';
 import HeroVideoBackground from './components/HeroVideoBackground.jsx';
 import { useLang } from './i18n.jsx';
@@ -74,7 +74,7 @@ export default function App() {
       {showVideo && <HeroVideoBackground src={VIDEO_SRC} />}
 
       <div className="relative z-10">
-        <Preloader />
+        <TunnelLoader />
         <a href="#main-content" className="skip-link">
           {t.ui.skipToContent}
         </a>
